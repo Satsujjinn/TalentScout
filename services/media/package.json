@@ -1,0 +1,9 @@
+{
+  "name": "@talentscout/media",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsc" },
+  "dependencies": { "aws-sdk": "^2.1361.0" },
+  "devDependencies": { "typescript": "^5.1.6" }
+}
