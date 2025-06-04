@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
-import Image from 'next/image';
+import FifaPlayerCard from '@/components/FifaPlayerCard';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -100,40 +100,19 @@ export default function RecruiterDashboard() {
             achFilter === ''
               ? true
               : (a.achievements || [])
-                  .join(' ') 
+                  .join(' ')
                   .toLowerCase()
                   .includes(achFilter.toLowerCase())
           )
           .map((athlete) => (
-          <div key={athlete._id} className="border p-4 rounded shadow">
-            {athlete.avatarUrl && (
-              <Image
-                src={athlete.avatarUrl}
-                alt={athlete.name}
-                width={400}
-                height={160}
-                className="w-full h-40 object-cover rounded mb-2"
-              />
-            )}
-            <h2 className="text-xl font-semibold">{athlete.name}</h2>
-            <p className="mb-2">{athlete.sport}</p>
-            {athlete.achievements && athlete.achievements.length > 0 && (
-              <ul className="mb-2 list-disc list-inside text-sm text-gray-600">
-                {athlete.achievements.map((a, idx) => (
-                  <li key={idx}>{a}</li>
-                ))}
-              </ul>
-            )}
-            <button
-              onClick={() =>
+            <FifaPlayerCard
+              key={athlete._id}
+              athlete={athlete}
+              onMatch={() =>
                 api.post('/api/matches', { athleteId: athlete._id, recruiterId })
               }
-              className="px-4 py-2 bg-orange-600 text-white rounded"
-            >
-              Match
-            </button>
-          </div>
-        ))}
+            />
+          ))}
       </div>
 
       <h2 className="text-2xl font-bold mt-8 mb-2">Matches</h2>

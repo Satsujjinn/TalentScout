@@ -207,6 +207,8 @@ Carousel:
 ```
 Images: Next.js <Image> in testimonials and anywhere else you need optimized assets.
 
+New in this version is a **FIFA-style player card** component used on the recruiter dashboard. Athletes are displayed in colorful cards inspired by football trading cards, showing their avatar, sport and key achievements with a dynamic rating.
+
 🔧 Backend Details
 Entry point: backend/src/index.ts
 
