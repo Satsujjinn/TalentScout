@@ -10,10 +10,7 @@ router.get('/', async (_req, res) => {
 
 router.get('/:id', async (req, res) => {
   const athlete = await Athlete.findById(req.params.id);
-  if (!athlete) {
-    res.status(404).json({ message: 'Athlete not found' });
-    return;
-  }
+  if (!athlete) return res.status(404).json({ message: 'Athlete not found' });
   res.json(athlete);
 });
 

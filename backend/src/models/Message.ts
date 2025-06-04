@@ -11,7 +11,7 @@ const MessageSchema = new Schema<MessageDocument>({
   roomId: { type: String, required: true },
   senderId: { type: String, required: true },
   text: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 });
 
 export default mongoose.models.Message || mongoose.model<MessageDocument>('Message', MessageSchema);

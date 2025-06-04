@@ -9,10 +9,11 @@ export interface AthleteDocument extends Document {
 }
 
 const AthleteSchema = new Schema<AthleteDocument>({
+  _id: { type: Schema.Types.ObjectId, required: true },
   name: { type: String, required: true },
   sport: { type: String },
   avatarUrl: { type: String },
-  achievements: { type: [String], default: [] },
+  achievements: { type: [String], default: [] }
 });
 
 export default mongoose.models.Athlete || mongoose.model<AthleteDocument>('Athlete', AthleteSchema);
