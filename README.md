@@ -91,7 +91,7 @@ Create .env files for both backend and frontend (use the .example templates):
 Backend (`backend/.env`)
 
 ```
-# Example: mongodb+srv://<username>:<password>@talent.mongodb.net/talent?retryWrites=true&w=majority
+# Example: mongodb+srv://<username>:<password>@talent.mm1kogv.mongodb.net/?retryWrites=true&w=majority&appName=Talent
 MONGODB_URI=<your_atlas_connection_string>
 JWT_SECRET=<your_jwt_secret>
 AWS_ACCESS_KEY_ID=<your_aws_key>
