@@ -274,6 +274,9 @@ On each push to main, the hosting provider will rebuild & redeploy.
 
 Monitor logs for build errors and runtime issues.
 
+## Credits
+Coding by Leon Jordaan (2025)
+
 🤝 Contributing
 Fork this repository.
 

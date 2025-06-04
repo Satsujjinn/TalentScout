@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { signToken } from '../utils/token';
 import User from '../models/User';
 import Athlete from '../models/Athlete';
 
@@ -25,7 +25,7 @@ router.post('/register', async (req, res) => {
     await Athlete.create({ _id: user._id, name, sport });
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret', { expiresIn: '7d' });
+  const token = signToken(user.id);
   res.json({ token, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
 });
 
@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
   if (!user) return res.status(401).json({ message: 'Invalid credentials' });
   const valid = await bcrypt.compare(password, user.passwordHash);
   if (!valid) return res.status(401).json({ message: 'Invalid credentials' });
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET || 'secret', { expiresIn: '7d' });
+  const token = signToken(user.id);
   res.json({ token, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
 });
 
