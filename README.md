@@ -205,6 +205,8 @@ Frontend:
 Connect to GitHub repo, set environment variables in Vercel’s dashboard (NEXT_PUBLIC_API_URL, NEXT_PUBLIC_S3_BUCKET, etc.).
 
 Build command: npm run build (Next.js)
+If building in an offline environment, set `NEXT_FONT_IGNORE_MISSING=true` to
+skip Google font downloads.
 
 Output directory: .next (handled by Vercel automatically).
 
@@ -214,7 +216,7 @@ On your chosen host (Heroku/Render/AWS EC2), set environment variables (MONGODB_
 
 Build step: npm run build (tsc)
 
-Start command: npm start (or node dist/index.js).
+Start command: npm start (runs the compiled server in `dist/index.js`).
 
 DNS & SSL
 
