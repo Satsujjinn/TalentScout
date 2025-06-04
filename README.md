@@ -70,44 +70,51 @@ TalentScout’s Athlete Edition is a platform where:
 ### Installation
 
 1. Clone repository (if you haven’t already):
-   ```bash
-   git clone https://github.com/yourusername/TalentScout.git
-   cd TalentScout
+
+```bash
+git clone https://github.com/yourusername/TalentScout.git
+cd TalentScout
+```
+
 Install all dependencies via npm workspaces:
 
-bash
-Copy
-Edit
+```bash
 npm install
+```
+
 This installs backend/, frontend/, and shared/ dependencies in one go.
 
-Environment Variables
+### Environment Variables
 Create .env files for both backend and frontend (use the .example templates):
 
-Backend (backend/.env)
-ini
-Copy
-Edit
+Backend (`backend/.env`)
+
+```
 MONGODB_URI=<your_atlas_connection_string>
 JWT_SECRET=<your_jwt_secret>
 AWS_ACCESS_KEY_ID=<your_aws_key>
 AWS_SECRET_ACCESS_KEY=<your_aws_secret>
 AWS_REGION=<your_aws_region>
 AWS_S3_BUCKET=<your_s3_bucket_name>
-Frontend (frontend/.env.local)
-ini
-Copy
-Edit
+```
+
+Frontend (`frontend/.env.local`)
+
+```
 NEXT_PUBLIC_API_URL=http://localhost:4000/api
 NEXT_PUBLIC_S3_REGION=<your_aws_region>
 NEXT_PUBLIC_S3_BUCKET=<your_s3_bucket_name>
-Running Locally
+```
+
+### Running Locally
+
 1. Start the Backend
-bash
-Copy
-Edit
+
+```bash
 cd backend
 npm run dev
+```
+
 The backend will run at http://localhost:4000 (by default).
 
 API routes are available under http://localhost:4000/api/....
@@ -115,11 +122,11 @@ API routes are available under http://localhost:4000/api/....
 2. Start the Frontend
 Open a new terminal window/tab:
 
-bash
-Copy
-Edit
+```bash
 cd frontend
 npm run dev
+```
+
 Next.js will run on http://localhost:3000.
 
 Tailwind styles and Swiper carousels will be active.
@@ -127,10 +134,10 @@ Tailwind styles and Swiper carousels will be active.
 3. Monorepo “All‐at‐Once” Command
 Alternatively, from the repo root:
 
-bash
-Copy
-Edit
+```bash
 npm run dev
+```
+
 This runs both frontend and backend concurrently (requires concurrently in root package.json).
 
 🎨 Frontend Details
@@ -144,9 +151,7 @@ Animations: Implemented with Framer Motion on headings, feature cards, and Swipe
 
 Carousel:
 
-tsx
-Copy
-Edit
+```tsx
 <Swiper
   modules={[Navigation, Pagination, Autoplay]}
   navigation={true}
@@ -158,6 +163,7 @@ Edit
 >
   {/* SwiperSlide components… */}
 </Swiper>
+```
 Images: Next.js <Image> in testimonials and anywhere else you need optimized assets.
 
 🔧 Backend Details
@@ -227,22 +233,22 @@ Fork this repository.
 
 Create a new branch:
 
-bash
-Copy
-Edit
+```bash
 git checkout -b feature/awesome-new-feature
+```
+
 Commit your changes:
 
-bash
-Copy
-Edit
+```bash
 git commit -m "Add awesome new feature"
+```
+
 Push to your fork:
 
-bash
-Copy
-Edit
+```bash
 git push origin feature/awesome-new-feature
+```
+
 Open a Pull Request against main.
 
 Please follow the existing code style:
