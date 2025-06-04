@@ -186,6 +186,7 @@ MongoDB: Mongoose connects using process.env.MONGODB_URI.
 Authentication:
 
 Register & login endpoints issue JWT tokens.
+Authenticated users can fetch their profile via `/api/users/me`.
 
 Protected routes use middleware/authenticate.ts to verify token.
 
