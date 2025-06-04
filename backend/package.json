@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "type": "commonjs",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "dev": "npx ts-node src/seed.ts && ts-node-dev --respawn src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20.17.55",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.1"
   }
 }

@@ -28,7 +28,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/health', healthRoutes);
 
 const mongoUri =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/talentScout';
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/Talent';
 connect(mongoUri)
   .then(() => console.log(`MongoDB connected to ${mongoUri}`))
   .catch((err) => {

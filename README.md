@@ -99,21 +99,21 @@ PORT=4000
 ```
 
 If `MONGODB_URI` is not provided, the backend falls back to a local
-MongoDB instance at `mongodb://localhost:27017/talentScout`. You can override
+MongoDB instance at `mongodb://localhost:27017/Talent`. You can override
 this by creating `backend/.env` based on `backend/.env.example` and supplying
 a full MongoDB Atlas connection string.
 
 ### MongoDB Setup
 
 1. Sign in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a new cluster.
-2. Create a database named `talentScout` with the following collections:
+2. Create a database named `Talent` with the following collections:
    - `users`
    - `athletes`
    - `matches`
    - `messages`
 3. From the Atlas dashboard copy your connection string and place it in `backend/.env` as the value of `MONGODB_URI`.
 4. Start the backend after saving the `.env` file to establish the connection.
-5. Alternatively, install MongoDB locally and start it with `mongod`. When `MONGODB_URI` is omitted, the backend automatically connects to `mongodb://localhost:27017/talentScout`.
+5. Alternatively, install MongoDB locally and start it with `mongod`. When `MONGODB_URI` is omitted, the backend automatically connects to `mongodb://localhost:27017/Talent`.
 
 Frontend (`frontend/.env.local`)
 Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.
@@ -157,6 +157,8 @@ npm run dev
 ```
 
 This runs both frontend and backend concurrently (requires concurrently in root package.json).
+The backend will automatically seed the `Talent` database with sample data when
+`npm run dev` is executed for the first time.
 
 ### Running with Docker
 
@@ -221,7 +223,7 @@ backend/src/middleware/ – JWT authentication, error handlers, etc.
 backend/src/services/ – Utility functions (e.g., AWS S3 upload, email service, AI matching service)
 
 MongoDB: Mongoose connects using `process.env.MONGODB_URI`. If that variable is
-not set, the app uses `mongodb://localhost:27017/talentScout`.
+not set, the app uses `mongodb://localhost:27017/Talent`.
 
 Authentication:
 
