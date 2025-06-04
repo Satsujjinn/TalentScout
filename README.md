@@ -15,6 +15,7 @@ It provides AI‐powered matching, real‐time chat, secure payments, and analyt
    - [Installation](#installation)  
    - [Running Locally](#running-locally)
    - [Running with Docker](#running-with-docker)
+   - [Running Tests](#running-tests)
    - [Environment Variables](#environment-variables)
 5. [Frontend Details](#frontend-details)  
 6. [Backend Details](#backend-details)  
@@ -97,8 +98,10 @@ JWT_SECRET=<your_jwt_secret>
 PORT=4000
 ```
 
-If `MONGODB_URI` is missing, the backend will exit on startup. Create `backend/.env`
-based on `backend/.env.example` and provide a valid MongoDB Atlas URI.
+If `MONGODB_URI` is not provided, the backend falls back to a local
+MongoDB instance at `mongodb://localhost:27017/talentScout`. You can override
+this by creating `backend/.env` based on `backend/.env.example` and supplying
+a full MongoDB Atlas connection string.
 
 ### MongoDB Setup
 
@@ -110,6 +113,7 @@ based on `backend/.env.example` and provide a valid MongoDB Atlas URI.
    - `messages`
 3. From the Atlas dashboard copy your connection string and place it in `backend/.env` as the value of `MONGODB_URI`.
 4. Start the backend after saving the `.env` file to establish the connection.
+5. Alternatively, install MongoDB locally and start it with `mongod`. When `MONGODB_URI` is omitted, the backend automatically connects to `mongodb://localhost:27017/talentScout`.
 
 Frontend (`frontend/.env.local`)
 Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.
@@ -165,6 +169,16 @@ docker run -p 3000:3000 -p 4000:4000 talentscout
 
 The container exposes the frontend on port `3000` and the backend API on `4000`.
 
+### Running Tests
+
+Execute backend unit tests with Jest:
+
+```bash
+npm test
+```
+
+All test files are located in `backend/__tests__`.
+
 🎨 Frontend Details
 Entry point: frontend/app/page.tsx
 
@@ -206,7 +220,8 @@ backend/src/middleware/ – JWT authentication, error handlers, etc.
 
 backend/src/services/ – Utility functions (e.g., AWS S3 upload, email service, AI matching service)
 
-MongoDB: Mongoose connects using process.env.MONGODB_URI.
+MongoDB: Mongoose connects using `process.env.MONGODB_URI`. If that variable is
+not set, the app uses `mongodb://localhost:27017/talentScout`.
 
 Authentication:
 
