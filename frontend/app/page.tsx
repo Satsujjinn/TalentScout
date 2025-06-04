@@ -23,7 +23,7 @@ const FEATURES = [
     description: 'Our platform uses advanced AI algorithms to match you with the best athletes.',
     icon: (
       <svg 
-        className="w-8 h-8 text-teal-600" 
+        className="w-8 h-8 text-orange-500" 
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -48,7 +48,7 @@ const FEATURES = [
     description: 'Communicate instantly with athletes or recruiters directly in the app.',
     icon: (
       <svg 
-        className="w-8 h-8 text-teal-600" 
+        className="w-8 h-8 text-orange-500" 
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -67,7 +67,7 @@ const FEATURES = [
     description: 'Handle all transactions securely through our integrated payment gateway.',
     icon: (
       <svg 
-        className="w-8 h-8 text-teal-600" 
+        className="w-8 h-8 text-orange-500" 
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ const FEATURES = [
     description: 'Gain insights with our powerful analytics tools and reporting features.',
     icon: (
       <svg 
-        className="w-8 h-8 text-teal-600" 
+        className="w-8 h-8 text-orange-500" 
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -164,10 +164,10 @@ export default function HomePage() {
         className="relative h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-        <div className="absolute inset-0 bg-teal-900 bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-blue-900 bg-opacity-60"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
           <motion.h1
-            className="text-6xl md:text-7xl font-extrabold text-teal-50 mb-4"
+            className="text-6xl md:text-7xl font-extrabold text-blue-50 mb-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -175,7 +175,7 @@ export default function HomePage() {
             Discover Top Athletes
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-teal-200 mb-8 max-w-2xl"
+            className="text-xl md:text-2xl text-blue-200 mb-8 max-w-2xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -185,13 +185,13 @@ export default function HomePage() {
           <div className="space-x-4">
             <Link
               href="/signup"
-              className="inline-block px-8 py-4 bg-teal-400 text-white font-semibold rounded-lg hover:bg-teal-300 transition"
+              className="inline-block px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-400 transition"
             >
               Get Started
             </Link>
             <Link
               href="/browse"
-              className="inline-block px-8 py-4 border border-teal-50 text-teal-50 font-semibold rounded-lg hover:bg-teal-50 hover:text-teal-700 transition"
+              className="inline-block px-8 py-4 border border-blue-50 text-blue-50 font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition"
             >
               Browse Athletes
             </Link>
@@ -200,9 +200,9 @@ export default function HomePage() {
       </section>
 
       {/* FEATURES SECTION */}
-      <section className="py-20 bg-teal-50">
+      <section className="py-20 bg-blue-50">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-teal-700 mb-12">
+          <h2 className="text-4xl font-bold text-center text-blue-700 mb-12">
             Platform Features
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -215,8 +215,8 @@ export default function HomePage() {
                 transition={{ delay: idx * 0.1 }}
               >
                 <div className="mb-4 flex justify-center">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-teal-800">{feature.title}</h3>
-                <p className="text-teal-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-2 text-blue-800">{feature.title}</h3>
+                <p className="text-blue-600">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -226,7 +226,7 @@ export default function HomePage() {
       {/* HOW IT WORKS SECTION */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-teal-700 mb-12">How It Works</h2>
+          <h2 className="text-4xl font-bold text-center text-blue-700 mb-12">How It Works</h2>
           <div className="space-y-12">
             {STEPS.map((step) => (
               <motion.div
@@ -237,11 +237,11 @@ export default function HomePage() {
                 transition={{ duration: 0.6 }}
               >
                 <div className="md:w-1/4 text-center md:text-left mb-4 md:mb-0">
-                  <div className="text-3xl font-bold text-teal-600">{step.step}</div>
+                  <div className="text-3xl font-bold text-orange-600">{step.step}</div>
                 </div>
                 <div className="md:w-3/4">
-                  <h3 className="text-2xl font-semibold text-teal-800 mb-2">{step.title}</h3>
-                  <p className="text-teal-600">{step.description}</p>
+                  <h3 className="text-2xl font-semibold text-blue-800 mb-2">{step.title}</h3>
+                  <p className="text-blue-600">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -250,9 +250,9 @@ export default function HomePage() {
       </section>
 
       {/* PRICING SECTION */}
-      <section className="py-20 bg-teal-100">
+      <section className="py-20 bg-blue-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-teal-700 mb-12">Pricing</h2>
+          <h2 className="text-4xl font-bold text-blue-700 mb-12">Pricing</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="text-xl font-semibold mb-2">Starter</h3>
@@ -274,9 +274,9 @@ export default function HomePage() {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section className="py-20 bg-teal-50">
+      <section className="py-20 bg-blue-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-teal-700 mb-12">What Users Say</h2>
+          <h2 className="text-4xl font-bold text-blue-700 mb-12">What Users Say</h2>
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             navigation={true}
@@ -294,7 +294,7 @@ export default function HomePage() {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <p className="text-teal-600 italic mb-4">“{t.text}”</p>
+                  <p className="text-blue-600 italic mb-4">“{t.text}”</p>
                   <div className="flex items-center justify-center space-x-4">
                     <Image
                       src={t.avatar}
@@ -304,8 +304,8 @@ export default function HomePage() {
                       className="rounded-full object-cover"
                     />
                     <div className="text-left">
-                      <p className="font-semibold text-teal-800">{t.name}</p>
-                      <p className="text-sm text-teal-500">{t.role}</p>
+                      <p className="font-semibold text-blue-800">{t.name}</p>
+                      <p className="text-sm text-blue-500">{t.role}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -316,13 +316,13 @@ export default function HomePage() {
       </section>
 
       {/* CALL TO ACTION SECTION */}
-      <section className="py-20 bg-teal-400 text-white">
+      <section className="py-20 bg-blue-400 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Elevate Your Recruiting?</h2>
           <p className="mb-8">Join TalentScout today and discover elite athletes in minutes.</p>
           <Link
             href="/signup"
-            className="inline-block px-8 py-4 bg-white text-teal-600 font-semibold rounded-md hover:bg-teal-50 transition"
+            className="inline-block px-8 py-4 bg-white text-blue-600 font-semibold rounded-md hover:bg-blue-50 transition"
           >
             Start Now
           </Link>
@@ -330,7 +330,7 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-8 bg-teal-900 text-teal-200 text-center">
+      <footer className="py-8 bg-blue-900 text-blue-200 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <nav className="flex justify-center space-x-6 mb-4">
             <Link href="/about" className="hover:text-white">About</Link>

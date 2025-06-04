@@ -35,7 +35,7 @@ export default function RecruiterDashboard() {
         setMatches((prev) => [...prev, m]);
       }
     });
-  }, []);
+  }, [recruiterId]);
 
   return (
     <div className="p-8">
@@ -52,7 +52,7 @@ export default function RecruiterDashboard() {
               onClick={() =>
                 api.post('/api/matches', { athleteId: athlete._id, recruiterId })
               }
-              className="px-4 py-2 bg-teal-600 text-white rounded"
+              className="px-4 py-2 bg-orange-600 text-white rounded"
             >
               Match
             </button>
@@ -65,7 +65,7 @@ export default function RecruiterDashboard() {
         {matches.map((m) => (
           <li key={m._id} className="border p-2 rounded">
             Athlete {m.athleteId} -{' '}
-            <Link href={`/chat/${m._id}`} className="underline text-teal-600">
+            <Link href={`/chat/${m._id}`} className="underline text-blue-600">
               Chat
             </Link>
           </li>

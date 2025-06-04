@@ -27,7 +27,7 @@ export default function AthleteProfile() {
       </div>
       <button
         onClick={save}
-        className="px-4 py-2 bg-teal-600 text-white rounded"
+        className="px-4 py-2 bg-orange-600 text-white rounded"
       >
         Save
       </button>
