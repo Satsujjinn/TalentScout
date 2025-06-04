@@ -7,6 +7,8 @@ import { connectDB } from './config/db';
 import athleteRoutes from './routes/athletes';
 import matchRoutes from './routes/matches';
 import messageRoutes from './routes/messages';
+import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
 import Message from './models/Message';
 
 dotenv.config();
@@ -20,6 +22,8 @@ const io = new Server(httpServer, {
 app.use(cors());
 app.use(express.json());
 
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/athletes', athleteRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
