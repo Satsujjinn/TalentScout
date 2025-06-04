@@ -98,10 +98,18 @@ AWS_ACCESS_KEY_ID=<your_aws_key>
 AWS_SECRET_ACCESS_KEY=<your_aws_secret>
 AWS_REGION=<your_aws_region>
 AWS_S3_BUCKET=<your_s3_bucket_name>
+# Set to 'true' to skip MongoDB connection
+DISABLE_DB=false
+# Set to 'true' to bypass authentication middleware
+DISABLE_AUTH=false
+# Default user ID when auth is disabled
+DEFAULT_USER_ID=test-user
 ```
 
 If `MONGODB_URI` is missing, the backend will exit on startup. Create `backend/.env`
 based on `backend/.env.example` and provide a valid MongoDB Atlas URI.
+To run the backend without MongoDB or authentication (e.g., for demos), set
+`DISABLE_DB=true` and `DISABLE_AUTH=true` in your `.env` file.
 
 Frontend (`frontend/.env.local`)
 Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.

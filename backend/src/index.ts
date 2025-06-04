@@ -29,14 +29,17 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/health', healthRoutes);
 
 const mongoUri = process.env.MONGODB_URI;
-if (!mongoUri) {
-  console.error(
-    'Missing MONGODB_URI. Create a backend/.env file based on backend/.env.example.'
-  );
-  process.exit(1);
+if (process.env.DISABLE_DB === 'true') {
+  console.warn('Database disabled via DISABLE_DB. Skipping connection.');
+} else {
+  if (!mongoUri) {
+    console.error(
+      'Missing MONGODB_URI. Create a backend/.env file based on backend/.env.example.'
+    );
+    process.exit(1);
+  }
+  connectDB(mongoUri);
 }
-
-connectDB(mongoUri);
 
 httpServer.listen(process.env.PORT || 4000, () => {
   console.log('Server running');
