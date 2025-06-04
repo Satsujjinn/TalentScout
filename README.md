@@ -100,6 +100,9 @@ AWS_REGION=<your_aws_region>
 AWS_S3_BUCKET=<your_s3_bucket_name>
 ```
 
+If `MONGODB_URI` is missing, the backend will exit on startup. Create `backend/.env`
+based on `backend/.env.example` and provide a valid MongoDB Atlas URI.
+
 Frontend (`frontend/.env.local`)
 Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.
 
