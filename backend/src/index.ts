@@ -28,12 +28,9 @@ app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/health', healthRoutes);
 
-const mongoUri = process.env.MONGODB_URI;
-if (mongoUri) {
-  connectDB(mongoUri);
-} else {
-  console.warn('MONGODB_URI not set. Backend will start without database connection.');
-}
+const defaultMongoUri = 'mongodb+srv://leonjordaan10:leonjordaan10@talent.mm1kogv.mongodb.net/?retryWrites=true&w=majority&appName=Talent';
+const mongoUri = process.env.MONGODB_URI || defaultMongoUri;
+connectDB(mongoUri);
 
 httpServer.listen(process.env.PORT || 4000, () => {
   console.log('Server running');
