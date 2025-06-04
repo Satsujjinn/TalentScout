@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getSocket } from '@/lib/socket';
 import { useParams } from 'next/navigation';
+import { useAuth } from '@/lib/auth';
 
 interface Message {
   text: string;
@@ -12,7 +13,8 @@ interface Message {
 export default function ChatRoom() {
   const params = useParams();
   const roomId = params.roomId as string;
-  const userId = 'u1';
+  const { user } = useAuth();
+  const userId = user?.id || '';
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState('');
 

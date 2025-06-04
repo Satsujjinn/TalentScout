@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import axios from 'axios';
 import { getSocket } from '@/lib/socket';
+import api from '@/lib/api';
+import { useAuth } from '@/lib/auth';
 
 interface Match {
   _id: string;
@@ -11,12 +12,14 @@ interface Match {
 }
 
 export default function AthleteDashboard() {
-  const athleteId = '1'; // placeholder id
+  const { user } = useAuth();
+  const athleteId = user?.id || '';
   const [matches, setMatches] = useState<Match[]>([]);
 
   useEffect(() => {
     async function fetchMatches() {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/matches/athlete/${athleteId}`);
+      if (!athleteId) return;
+      const res = await api.get(`/api/matches/athlete/${athleteId}`);
       setMatches(res.data);
     }
     fetchMatches();
