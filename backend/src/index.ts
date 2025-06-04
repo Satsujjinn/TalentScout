@@ -27,15 +27,14 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/health', healthRoutes);
 
-const mongoUri = process.env.MONGODB_URI;
-if (!mongoUri) {
-  console.error('Missing MONGODB_URI');
-  process.exit(1);
-}
-connect(mongoUri).catch((err) => {
-  console.error('Mongo connection failed', err);
-  process.exit(1);
-});
+const mongoUri =
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/talentScout';
+connect(mongoUri)
+  .then(() => console.log(`MongoDB connected to ${mongoUri}`))
+  .catch((err) => {
+    console.error('Mongo connection failed', err);
+    process.exit(1);
+  });
 
 const port = process.env.PORT || 4000;
 httpServer.listen(port, () => console.log(`Server running on port ${port}`));
