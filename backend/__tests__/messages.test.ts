@@ -3,6 +3,9 @@ import express from 'express';
 import messageRoutes from '../src/routes/messages';
 import Message from '../src/models/Message';
 
+jest.mock('../src/middleware/auth', () => ({ authenticate: (_req: any, _res: any, next: any) => next() }));
+jest.mock('../src/utils/token', () => ({ verifyToken: jest.fn(() => ({ id: '1' })) }));
+
 jest.mock('../src/models/Message');
 
 const app = express();

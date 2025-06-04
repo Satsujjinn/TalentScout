@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -26,9 +26,12 @@ export default function RecruiterDashboard() {
   const { user } = useAuth();
   const router = useRouter();
   const recruiterId = user?.id || '';
+  const searchParams = useSearchParams();
   const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
-  const [search, setSearch] = useState('');
+  const [nameFilter, setNameFilter] = useState(searchParams.get('name') || '');
+  const [sportFilter, setSportFilter] = useState(searchParams.get('sport') || '');
+  const [achFilter, setAchFilter] = useState(searchParams.get('ach') || '');
 
   useEffect(() => {
     if (!user) {
@@ -52,22 +55,55 @@ export default function RecruiterDashboard() {
         });
       }
     });
-  }, [recruiterId, user]);
+  }, [recruiterId, user, router]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (nameFilter) params.set('name', nameFilter);
+    if (sportFilter) params.set('sport', sportFilter);
+    if (achFilter) params.set('ach', achFilter);
+    router.replace(`?${params.toString()}`);
+  }, [nameFilter, sportFilter, achFilter, router]);
 
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4">Recruiter Dashboard</h1>
-      <div className="mb-4">
+      <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-2">
         <input
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-1/3 border p-2 rounded"
-          placeholder="Search athletes..."
+          value={nameFilter}
+          onChange={(e) => setNameFilter(e.target.value)}
+          className="w-full border p-2 rounded"
+          placeholder="Filter by name"
+        />
+        <input
+          value={sportFilter}
+          onChange={(e) => setSportFilter(e.target.value)}
+          className="w-full border p-2 rounded"
+          placeholder="Filter by sport"
+        />
+        <input
+          value={achFilter}
+          onChange={(e) => setAchFilter(e.target.value)}
+          className="w-full border p-2 rounded"
+          placeholder="Filter by achievement"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {athletes
-          .filter((a) => a.name.toLowerCase().includes(search.toLowerCase()))
+          .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
+          .filter((a) =>
+            sportFilter === ''
+              ? true
+              : (a.sport || '').toLowerCase().includes(sportFilter.toLowerCase())
+          )
+          .filter((a) =>
+            achFilter === ''
+              ? true
+              : (a.achievements || [])
+                  .join(' ') 
+                  .toLowerCase()
+                  .includes(achFilter.toLowerCase())
+          )
           .map((athlete) => (
           <div key={athlete._id} className="border p-4 rounded shadow">
             {athlete.avatarUrl && (

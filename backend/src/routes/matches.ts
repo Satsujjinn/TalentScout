@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import Match from '../models/Match';
+import { authenticate } from '../middleware/auth';
 
 const router = Router();
+router.use(authenticate);
 
 router.post('/', async (req, res) => {
   const { athleteId, recruiterId } = req.body as { athleteId: string; recruiterId: string };
