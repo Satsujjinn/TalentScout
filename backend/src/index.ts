@@ -28,8 +28,14 @@ app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/health', healthRoutes);
 
-const defaultMongoUri = 'mongodb+srv://leonjordaan10:leonjordaan10@talent.mm1kogv.mongodb.net/?retryWrites=true&w=majority&appName=Talent';
-const mongoUri = process.env.MONGODB_URI || defaultMongoUri;
+const mongoUri = process.env.MONGODB_URI;
+if (!mongoUri) {
+  console.error(
+    'Missing MONGODB_URI. Create a backend/.env file based on backend/.env.example.'
+  );
+  process.exit(1);
+}
+
 connectDB(mongoUri);
 
 httpServer.listen(process.env.PORT || 4000, () => {
