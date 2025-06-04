@@ -134,9 +134,9 @@ npm run dev
 This runs both frontend and backend concurrently (requires concurrently in root package.json).
 
 🎨 Frontend Details
-Entry point: frontend/src/app/page.tsx
+Entry point: frontend/app/page.tsx
 
-Global styles: frontend/src/app/globals.css
+Global styles: frontend/app/globals.css
 
 Color palette: Tailwind’s teal range (e.g., bg-teal-50, text-teal-700, bg-teal-400, etc.) for a pastel aquamarine look.
 
