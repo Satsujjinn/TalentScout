@@ -10,6 +10,7 @@ const HERO_IMAGE = '/hero-background.jpg';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState<'athlete' | 'recruiter'>('athlete');
 
   const router = useRouter();
   const [verifyMsg, setVerifyMsg] = useState<string | null>(null);
@@ -24,6 +25,10 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const u = await login(email, password);
+    if (u.role !== role) {
+      alert('Incorrect role selected');
+      return;
+    }
     if (u.role === 'recruiter') router.push('/recruiters/dashboard');
     else router.push('/athletes/dashboard');
   };
@@ -66,6 +71,19 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-blue-700 mb-1">
+                Role
+              </label>
+              <select
+                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={role}
+                onChange={(e) => setRole(e.target.value as 'athlete' | 'recruiter')}
+              >
+                <option value="athlete">Athlete</option>
+                <option value="recruiter">Recruiter</option>
+              </select>
             </div>
             <button
               type="submit"
