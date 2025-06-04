@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,11 +24,16 @@ interface Match {
 
 export default function RecruiterDashboard() {
   const { user } = useAuth();
+  const router = useRouter();
   const recruiterId = user?.id || '';
   const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
 
   useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
     async function fetchAthletes() {
       const res = await api.get('/api/athletes');
       setAthletes(res.data);
@@ -45,7 +51,7 @@ export default function RecruiterDashboard() {
         });
       }
     });
-  }, [recruiterId]);
+  }, [recruiterId, user]);
 
   return (
     <div className="p-8">
