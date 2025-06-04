@@ -11,12 +11,14 @@ interface Athlete {
   name: string;
   sport?: string;
   avatarUrl?: string;
+  achievements?: string[];
 }
 
 interface Match {
   _id: string;
   athleteId: string;
   recruiterId: string;
+  status: 'pending' | 'accepted' | 'declined';
 }
 
 export default function RecruiterDashboard() {
@@ -34,7 +36,13 @@ export default function RecruiterDashboard() {
     const socket = getSocket(recruiterId);
     socket.on('match', (m: Match) => {
       if (m.recruiterId === recruiterId) {
-        setMatches((prev) => [...prev, m]);
+        setMatches((prev) => {
+          const existing = prev.find((x) => x._id === m._id);
+          if (existing) {
+            return prev.map((x) => (x._id === m._id ? m : x));
+          }
+          return [...prev, m];
+        });
       }
     });
   }, [recruiterId]);
@@ -56,6 +64,13 @@ export default function RecruiterDashboard() {
             )}
             <h2 className="text-xl font-semibold">{athlete.name}</h2>
             <p className="mb-2">{athlete.sport}</p>
+            {athlete.achievements && athlete.achievements.length > 0 && (
+              <ul className="mb-2 list-disc list-inside text-sm text-gray-600">
+                {athlete.achievements.map((a, idx) => (
+                  <li key={idx}>{a}</li>
+                ))}
+              </ul>
+            )}
             <button
               onClick={() =>
                 api.post('/api/matches', { athleteId: athlete._id, recruiterId })
@@ -72,10 +87,15 @@ export default function RecruiterDashboard() {
       <ul className="space-y-2">
         {matches.map((m) => (
           <li key={m._id} className="border p-2 rounded">
-            Athlete {m.athleteId} -{' '}
-            <Link href={`/chat/${m._id}`} className="underline text-blue-600">
-              Chat
-            </Link>
+            Athlete {m.athleteId} - {m.status}
+            {m.status === 'accepted' && (
+              <Link
+                href={`/chat/${m._id}`}
+                className="underline text-blue-600 ml-2"
+              >
+                Chat
+              </Link>
+            )}
           </li>
         ))}
       </ul>

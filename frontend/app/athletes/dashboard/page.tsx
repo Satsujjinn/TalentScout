@@ -9,6 +9,7 @@ interface Match {
   _id: string;
   athleteId: string;
   recruiterId: string;
+  status: 'pending' | 'accepted' | 'declined';
 }
 
 export default function AthleteDashboard() {
@@ -26,7 +27,13 @@ export default function AthleteDashboard() {
     const socket = getSocket(athleteId);
     socket.on('match', (match: Match) => {
       if (match.athleteId === athleteId) {
-        setMatches((m) => [...m, match]);
+        setMatches((m) => {
+          const existing = m.find((x) => x._id === match._id);
+          if (existing) {
+            return m.map((x) => (x._id === match._id ? match : x));
+          }
+          return [...m, match];
+        });
       }
     });
   }, [athleteId]);
@@ -39,10 +46,35 @@ export default function AthleteDashboard() {
       <ul className="space-y-2">
         {matches.map((m) => (
           <li key={m._id} className="border p-2 rounded">
-            Matched with recruiter {m.recruiterId} -{' '}
-            <Link href={`/chat/${m._id}`} className="text-blue-600 underline">
-              Open Chat
-            </Link>
+            Recruiter {m.recruiterId} - {m.status}
+            {m.status === 'pending' && (
+              <>
+                <button
+                  onClick={() =>
+                    api.patch(`/api/matches/${m._id}`, { status: 'accepted' })
+                  }
+                  className="ml-2 px-2 py-1 bg-green-600 text-white rounded"
+                >
+                  Accept
+                </button>
+                <button
+                  onClick={() =>
+                    api.patch(`/api/matches/${m._id}`, { status: 'declined' })
+                  }
+                  className="ml-2 px-2 py-1 bg-red-600 text-white rounded"
+                >
+                  Decline
+                </button>
+              </>
+            )}
+            {m.status === 'accepted' && (
+              <Link
+                href={`/chat/${m._id}`}
+                className="ml-2 text-blue-600 underline"
+              >
+                Open Chat
+              </Link>
+            )}
           </li>
         ))}
       </ul>

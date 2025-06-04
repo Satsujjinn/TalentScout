@@ -6,10 +6,15 @@ import api from '@/lib/api';
 export default function AthleteProfile() {
   const { user } = useAuth();
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [achievements, setAchievements] = useState('');
 
   const save = async () => {
     if (!user) return;
-    await api.put(`/api/athletes/${user.id}`, { avatarUrl });
+    const achievementsArr = achievements
+      .split('\n')
+      .map((a) => a.trim())
+      .filter(Boolean);
+    await api.put(`/api/athletes/${user.id}`, { avatarUrl, achievements: achievementsArr });
     alert('Profile updated');
   };
 
@@ -23,6 +28,15 @@ export default function AthleteProfile() {
           className="border p-2 w-full rounded"
           value={avatarUrl}
           onChange={(e) => setAvatarUrl(e.target.value)}
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-1">Achievements (one per line)</label>
+        <textarea
+          className="border p-2 w-full rounded"
+          rows={4}
+          value={achievements}
+          onChange={(e) => setAchievements(e.target.value)}
         />
       </div>
       <button
