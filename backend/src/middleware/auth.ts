@@ -6,6 +6,10 @@ export interface AuthenticatedRequest extends Request {
 }
 
 export function authenticate(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
+  if (process.env.DISABLE_AUTH === 'true') {
+    req.userId = process.env.DEFAULT_USER_ID || 'test-user';
+    return next();
+  }
   const auth = req.headers.authorization;
   if (!auth) {
     res.status(401).json({ message: 'Missing Authorization header' });
