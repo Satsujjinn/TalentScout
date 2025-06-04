@@ -28,6 +28,7 @@ export default function RecruiterDashboard() {
   const recruiterId = user?.id || '';
   const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (!user) {
@@ -56,8 +57,18 @@ export default function RecruiterDashboard() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4">Recruiter Dashboard</h1>
+      <div className="mb-4">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-1/3 border p-2 rounded"
+          placeholder="Search athletes..."
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {athletes.map((athlete) => (
+        {athletes
+          .filter((a) => a.name.toLowerCase().includes(search.toLowerCase()))
+          .map((athlete) => (
           <div key={athlete._id} className="border p-4 rounded shadow">
             {athlete.avatarUrl && (
               <Image
