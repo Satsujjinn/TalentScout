@@ -99,6 +99,7 @@ AWS_S3_BUCKET=<your_s3_bucket_name>
 ```
 
 Frontend (`frontend/.env.local`)
+Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.
 
 ```
 NEXT_PUBLIC_API_URL=http://localhost:4000/api

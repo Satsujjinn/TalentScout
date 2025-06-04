@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
+import api from '@/lib/api';
+import { useAuth } from '@/lib/auth';
 
 interface Athlete {
   _id: string;
@@ -17,14 +18,15 @@ interface Match {
 }
 
 export default function RecruiterDashboard() {
-  const recruiterId = 'r1'; // placeholder recruiter
+  const { user } = useAuth();
+  const recruiterId = user?.id || '';
   const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [index, setIndex] = useState(0);
   const [matches, setMatches] = useState<Match[]>([]);
 
   useEffect(() => {
     async function fetchAthletes() {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/athletes`);
+      const res = await api.get('/api/athletes');
       setAthletes(res.data);
     }
     fetchAthletes();
@@ -39,7 +41,7 @@ export default function RecruiterDashboard() {
   async function like() {
     const athlete = athletes[index];
     if (!athlete) return;
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/matches`, {
+    await api.post('/api/matches', {
       athleteId: athlete._id,
       recruiterId,
     });
