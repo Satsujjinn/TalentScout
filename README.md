@@ -13,8 +13,9 @@ It provides AI‐powered matching, real‐time chat, secure payments, and analyt
 4. [Getting Started](#getting-started)  
    - [Prerequisites](#prerequisites)  
    - [Installation](#installation)  
-   - [Running Locally](#running-locally)  
-   - [Environment Variables](#environment-variables)  
+   - [Running Locally](#running-locally)
+   - [Running with Docker](#running-with-docker)
+   - [Environment Variables](#environment-variables)
 5. [Frontend Details](#frontend-details)  
 6. [Backend Details](#backend-details)  
 7. [Deploying to Production](#deploying-to-production)  
@@ -140,6 +141,17 @@ npm run dev
 ```
 
 This runs both frontend and backend concurrently (requires concurrently in root package.json).
+
+### Running with Docker
+
+To build and run the entire stack in Docker:
+
+```bash
+docker build -t talentscout .
+docker run -p 3000:3000 -p 4000:4000 talentscout
+```
+
+The container exposes the frontend on port `3000` and the backend API on `4000`.
 
 🎨 Frontend Details
 Entry point: frontend/app/page.tsx
