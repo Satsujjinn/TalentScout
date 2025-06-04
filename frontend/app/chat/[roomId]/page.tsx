@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getSocket } from '@/lib/socket';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
+import api from '@/lib/api';
 
 interface Message {
   text: string;
@@ -17,15 +18,22 @@ export default function ChatRoom() {
   const userId = user?.id || '';
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState('');
+  const [status, setStatus] = useState<'pending' | 'accepted' | 'declined'>('pending');
 
   useEffect(() => {
-    const socket = getSocket(userId, roomId);
-    socket.on('message', (msg: Message) => {
-      setMessages((prev) => [...prev, msg]);
-    });
+    async function init() {
+      const res = await api.get(`/api/matches/${roomId}`);
+      setStatus(res.data.status);
+      const socket = getSocket(userId, roomId);
+      socket.on('message', (msg: Message) => {
+        setMessages((prev) => [...prev, msg]);
+      });
+    }
+    init();
   }, [roomId, userId]);
 
   function send() {
+    if (status !== 'accepted') return;
     const socket = getSocket();
     socket.emit('message', { roomId, text, senderId: userId });
     setText('');
@@ -35,12 +43,16 @@ export default function ChatRoom() {
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Chat</h1>
       <div className="border p-4 mb-4 h-64 overflow-y-auto">
-        {messages.map((m, idx) => (
-          <div key={idx} className="mb-2">
-            <span className="font-semibold mr-2">{m.senderId}:</span>
-            {m.text}
-          </div>
-        ))}
+        {status !== 'accepted' ? (
+          <p className="text-gray-600">Waiting for match acceptance...</p>
+        ) : (
+          messages.map((m, idx) => (
+            <div key={idx} className="mb-2">
+              <span className="font-semibold mr-2">{m.senderId}:</span>
+              {m.text}
+            </div>
+          ))
+        )}
       </div>
       <div className="flex space-x-2">
         <input

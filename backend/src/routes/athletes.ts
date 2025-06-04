@@ -18,14 +18,15 @@ router.get('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const { name, sport, avatarUrl } = req.body as {
+  const { name, sport, avatarUrl, achievements } = req.body as {
     name?: string;
     sport?: string;
     avatarUrl?: string;
+    achievements?: string[];
   };
   const athlete = await Athlete.findByIdAndUpdate(
     req.params.id,
-    { name, sport, avatarUrl },
+    { name, sport, avatarUrl, achievements },
     { new: true }
   );
   res.json(athlete);
