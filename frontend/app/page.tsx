@@ -189,18 +189,11 @@ export default function HomePage() {
             >
               Get Started
             </Link>
-            {/* Temporary links to dashboards for testing */}
             <Link
-              href="/athletes/dashboard"
-              className="inline-block px-4 py-2 bg-gray-200 text-blue-700 font-medium rounded-lg hover:bg-gray-300 transition"
+              href="/login"
+              className="inline-block px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-500 transition"
             >
-              Athlete Dashboard
-            </Link>
-            <Link
-              href="/recruiters/dashboard"
-              className="inline-block px-4 py-2 bg-gray-200 text-blue-700 font-medium rounded-lg hover:bg-gray-300 transition"
-            >
-              Recruiter Dashboard
+              Sign In
             </Link>
           </div>
         </div>
