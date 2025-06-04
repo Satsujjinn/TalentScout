@@ -9,6 +9,7 @@ interface Athlete {
   _id: string;
   name: string;
   sport?: string;
+  avatarUrl?: string;
 }
 
 interface Match {

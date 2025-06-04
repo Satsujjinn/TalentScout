@@ -9,6 +9,7 @@ import matchRoutes from './routes/matches';
 import messageRoutes from './routes/messages';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/users';
+import healthRoutes from './routes/health';
 import Message from './models/Message';
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/athletes', athleteRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/health', healthRoutes);
 
 const mongoUri = process.env.MONGODB_URI;
 if (mongoUri) {
