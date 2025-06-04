@@ -98,6 +98,9 @@ AWS_REGION=<your_aws_region>
 AWS_S3_BUCKET=<your_s3_bucket_name>
 ```
 
+The backend validates required variables via Zod in `src/config/env.ts`. Ensure `MONGODB_URI` is provided.
+
+
 Frontend (`frontend/.env.local`)
 
 ```

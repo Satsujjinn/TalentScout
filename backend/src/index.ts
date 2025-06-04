@@ -1,11 +1,12 @@
 import express from 'express';
 import cors from 'cors';
-import { MongoClient, ObjectId } from 'mongodb';
-import dotenv from 'dotenv';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-
-dotenv.config();
+import { env } from './config/env';
+import { connectToDatabase } from './db';
+import matchesRouter from './routes/matches';
 
 const app = express();
 const httpServer = createServer(app);
@@ -15,65 +16,13 @@ const io = new Server(httpServer, {
   },
 });
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(rateLimit({ windowMs: 60 * 1000, max: 100 }));
 
-const mongoUri = process.env.MONGODB_URI || '';
-const client = new MongoClient(mongoUri);
-let db: any;
+app.use('/api/matches', matchesRouter);
 
-async function init() {
-  await client.connect();
-  db = client.db();
-  httpServer.listen(process.env.PORT || 4000, () => {
-    console.log('Server running');
-  });
-}
-
-init().catch((err) => console.error(err));
-
-// Basic athletes endpoint
-app.get('/api/athletes', async (_req, res) => {
-  const athletes = await db.collection('athletes').find().toArray();
-  res.json(athletes);
-});
-
-// Create match
-app.post('/api/matches', async (req, res) => {
-  const { athleteId, recruiterId } = req.body as {
-    athleteId: string;
-    recruiterId: string;
-  };
-  const match = {
-    athleteId: new ObjectId(athleteId),
-    recruiterId: new ObjectId(recruiterId),
-    createdAt: new Date(),
-  };
-  await db.collection('matches').insertOne(match);
-  io.to(athleteId).emit('match', match);
-  io.to(recruiterId).emit('match', match);
-  res.json({ ok: true, match });
-});
-
-app.get('/api/matches/athlete/:id', async (req, res) => {
-  const id = req.params.id;
-  const matches = await db
-    .collection('matches')
-    .find({ athleteId: new ObjectId(id) })
-    .toArray();
-  res.json(matches);
-});
-
-app.get('/api/matches/recruiter/:id', async (req, res) => {
-  const id = req.params.id;
-  const matches = await db
-    .collection('matches')
-    .find({ recruiterId: new ObjectId(id) })
-    .toArray();
-  res.json(matches);
-});
-
-// socket.io for chat
 io.on('connection', (socket) => {
   const { roomId, userId } = socket.handshake.query as {
     roomId?: string;
@@ -90,3 +39,12 @@ io.on('connection', (socket) => {
     io.to(data.roomId).emit('message', data);
   });
 });
+
+async function start() {
+  await connectToDatabase();
+  httpServer.listen(env.PORT ? parseInt(env.PORT) : 4000, () => {
+    console.log('Server running');
+  });
+}
+
+start().catch((err) => console.error(err));
