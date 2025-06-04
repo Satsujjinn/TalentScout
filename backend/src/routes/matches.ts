@@ -27,6 +27,10 @@ router.patch('/:id', async (req, res) => {
     { status },
     { new: true }
   );
+  if (!match) {
+    res.status(404).json({ message: 'Match not found' });
+    return;
+  }
   if (match) {
     try {
       const io = getIO();
