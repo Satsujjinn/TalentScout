@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
+import Image from 'next/image';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -45,7 +46,13 @@ export default function RecruiterDashboard() {
         {athletes.map((athlete) => (
           <div key={athlete._id} className="border p-4 rounded shadow">
             {athlete.avatarUrl && (
-              <img src={athlete.avatarUrl} alt={athlete.name} className="w-full h-40 object-cover rounded mb-2" />
+              <Image
+                src={athlete.avatarUrl}
+                alt={athlete.name}
+                width={400}
+                height={160}
+                className="w-full h-40 object-cover rounded mb-2"
+              />
             )}
             <h2 className="text-xl font-semibold">{athlete.name}</h2>
             <p className="mb-2">{athlete.sport}</p>
