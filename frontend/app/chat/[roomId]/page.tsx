@@ -23,7 +23,7 @@ export default function ChatRoom() {
     socket.on('message', (msg: Message) => {
       setMessages((prev) => [...prev, msg]);
     });
-  }, [roomId]);
+  }, [roomId, userId]);
 
   function send() {
     const socket = getSocket();
@@ -48,7 +48,7 @@ export default function ChatRoom() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button onClick={send} className="px-4 py-2 bg-teal-600 text-white rounded">
+        <button onClick={send} className="px-4 py-2 bg-orange-600 text-white rounded">
           Send
         </button>
       </div>

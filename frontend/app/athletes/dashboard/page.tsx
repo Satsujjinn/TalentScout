@@ -29,18 +29,18 @@ export default function AthleteDashboard() {
         setMatches((m) => [...m, match]);
       }
     });
-  }, []);
+  }, [athleteId]);
 
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4">Athlete Dashboard</h1>
-      <Link href="/athletes/profile" className="underline text-teal-600 block mb-4">Edit Profile</Link>
+      <Link href="/athletes/profile" className="underline text-blue-600 block mb-4">Edit Profile</Link>
       <p className="mb-4">Waiting for recruiters to match with you...</p>
       <ul className="space-y-2">
         {matches.map((m) => (
           <li key={m._id} className="border p-2 rounded">
             Matched with recruiter {m.recruiterId} -{' '}
-            <Link href={`/chat/${m._id}`} className="text-teal-600 underline">
+            <Link href={`/chat/${m._id}`} className="text-blue-600 underline">
               Open Chat
             </Link>
           </li>
