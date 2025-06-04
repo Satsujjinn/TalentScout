@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Match from '../models/Match';
+import { getIO } from '../socket';
 
 const router = Router();
 
@@ -9,6 +10,13 @@ router.post('/', async (req, res) => {
     recruiterId: string;
   };
   const match = await Match.create({ athleteId, recruiterId });
+  try {
+    const io = getIO();
+    io.to(athleteId).emit('match', match);
+    io.to(recruiterId).emit('match', match);
+  } catch (err) {
+    console.error('Socket.io not initialized', err);
+  }
   res.json(match);
 });
 
