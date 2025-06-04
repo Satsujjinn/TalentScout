@@ -92,7 +92,7 @@ Create .env files for both backend and frontend (use the .example templates):
 Backend (`backend/.env`)
 
 ```
-# Example Mongo URI: mongodb+srv://<user>:<pass>@cluster0.mongodb.net/talentScout
+# Example Mongo URI: mongodb+srv://leonjordaan10:<db_password>@talent.mm1kogv.mongodb.net/?retryWrites=true&w=majority&appName=Talent
 MONGODB_URI=<your_atlas_connection_string>
 JWT_SECRET=<your_jwt_secret>
 PORT=4000
