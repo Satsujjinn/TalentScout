@@ -5,8 +5,14 @@ import { UserProfile } from '../../shared/src/types/user';
 interface AuthState {
   user: UserProfile | null;
   token: string | null;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<UserProfile>;
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    role: 'athlete' | 'recruiter',
+    sport?: string
+  ) => Promise<void>;
   logout: () => void;
 }
 
@@ -33,13 +39,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(res.data.token);
     setUser(res.data.user);
     localStorage.setItem('auth', JSON.stringify(res.data));
+    return res.data.user as UserProfile;
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const signup = async (
+    name: string,
+    email: string,
+    password: string,
+    role: 'athlete' | 'recruiter',
+    sport?: string
+  ) => {
     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
       name,
       email,
       password,
+      role,
+      sport,
     });
     setToken(res.data.token);
     setUser(res.data.user);

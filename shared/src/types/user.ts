@@ -3,7 +3,8 @@ export interface UserProfile {
   name: string;
   email: string;
   avatar?: string;
-  roles: string[];
+  role: 'athlete' | 'recruiter';
+  isVerified: boolean;
   createdAt: string;
   updatedAt: string;
 }
