@@ -1,11 +1,11 @@
-import { Router, Request, Response } from 'express';
-import { authenticate, AuthenticatedRequest } from '../middleware/auth';
+import { Router } from 'express';
 import User from '../models/User';
 
 const router = Router();
 
-router.get('/me', authenticate, async (req: AuthenticatedRequest, res: Response): Promise<void> => {
-  const user = await User.findById(req.userId).select('-passwordHash');
+router.get('/:id', async (req, res) => {
+  const user = await User.findById(req.params.id).select('-passwordHash');
+  if (!user) return res.status(404).json({ message: 'User not found' });
   res.json(user);
 });
 

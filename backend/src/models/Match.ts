@@ -11,7 +11,7 @@ const MatchSchema = new Schema<MatchDocument>({
   athleteId: { type: Schema.Types.ObjectId, required: true },
   recruiterId: { type: Schema.Types.ObjectId, required: true },
   status: { type: String, enum: ['pending', 'accepted', 'declined'], default: 'pending' },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 });
 
 export default mongoose.models.Match || mongoose.model<MatchDocument>('Match', MatchSchema);

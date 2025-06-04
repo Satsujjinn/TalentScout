@@ -91,25 +91,25 @@ Create .env files for both backend and frontend (use the .example templates):
 Backend (`backend/.env`)
 
 ```
-# Example: mongodb+srv://<username>:<password>@talent.mm1kogv.mongodb.net/?retryWrites=true&w=majority&appName=Talent
+# Example Mongo URI: mongodb+srv://<user>:<pass>@cluster0.mongodb.net/talentScout
 MONGODB_URI=<your_atlas_connection_string>
 JWT_SECRET=<your_jwt_secret>
-AWS_ACCESS_KEY_ID=<your_aws_key>
-AWS_SECRET_ACCESS_KEY=<your_aws_secret>
-AWS_REGION=<your_aws_region>
-AWS_S3_BUCKET=<your_s3_bucket_name>
-# Set to 'true' to skip MongoDB connection
-DISABLE_DB=false
-# Set to 'true' to bypass authentication middleware
-DISABLE_AUTH=false
-# Default user ID when auth is disabled
-DEFAULT_USER_ID=test-user
+PORT=4000
 ```
 
 If `MONGODB_URI` is missing, the backend will exit on startup. Create `backend/.env`
 based on `backend/.env.example` and provide a valid MongoDB Atlas URI.
-To run the backend without MongoDB or authentication (e.g., for demos), set
-`DISABLE_DB=true` and `DISABLE_AUTH=true` in your `.env` file.
+
+### MongoDB Setup
+
+1. Sign in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a new cluster.
+2. Create a database named `talentScout` with the following collections:
+   - `users`
+   - `athletes`
+   - `matches`
+   - `messages`
+3. From the Atlas dashboard copy your connection string and place it in `backend/.env` as the value of `MONGODB_URI`.
+4. Start the backend after saving the `.env` file to establish the connection.
 
 Frontend (`frontend/.env.local`)
 Copy `frontend/.env.local.example` to `frontend/.env.local` and adjust values.
