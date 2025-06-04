@@ -199,6 +199,9 @@ MongoDB: Mongoose connects using process.env.MONGODB_URI.
 Authentication:
 
 Register & login endpoints issue JWT tokens.
+Registration now generates an email verification token. Check the server logs
+for the token value in development and POST it to `/api/auth/verify` before
+logging in.
 Authenticated users can fetch their profile via `/api/users/me`.
 
 Protected routes use middleware/authenticate.ts to verify token.

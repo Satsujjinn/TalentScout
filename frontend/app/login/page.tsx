@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 
 const HERO_IMAGE = '/hero-background.jpg';
@@ -12,12 +12,15 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   const router = useRouter();
+  const params = useSearchParams();
+  const verifyMsg = params.get('verify');
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email, password);
-    router.push('/recruiters/dashboard');
+    const u = await login(email, password);
+    if (u.role === 'recruiter') router.push('/recruiters/dashboard');
+    else router.push('/athletes/dashboard');
   };
 
   return (
@@ -29,9 +32,12 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-teal-900 bg-opacity-60" />
         <div className="relative z-10 flex items-center justify-center h-full px-4">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-80">
-            <h1 className="text-2xl font-bold text-center text-teal-700 mb-6">
-              Sign In
-            </h1>
+          <h1 className="text-2xl font-bold text-center text-teal-700 mb-6">
+            Sign In
+          </h1>
+          {verifyMsg && (
+            <p className="mb-4 text-teal-700 text-center">Please check your email for a verification link.</p>
+          )}
             <div className="mb-4">
               <label className="block text-sm font-medium text-teal-700 mb-1">
                 Email

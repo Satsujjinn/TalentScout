@@ -249,6 +249,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* PRICING SECTION */}
+      <section className="py-20 bg-teal-100">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-teal-700 mb-12">Pricing</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-2">Starter</h3>
+              <p className="text-3xl font-bold mb-4">Free</p>
+              <p>Browse athletes and receive limited matches.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-2">Pro</h3>
+              <p className="text-3xl font-bold mb-4">$29/mo</p>
+              <p>Unlimited matches and chat history.</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="text-xl font-semibold mb-2">Elite</h3>
+              <p className="text-3xl font-bold mb-4">$99/mo</p>
+              <p>Priority support and advanced analytics.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TESTIMONIALS SECTION */}
       <section className="py-20 bg-teal-50">
         <div className="max-w-4xl mx-auto px-4 text-center">
