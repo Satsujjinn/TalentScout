@@ -3,6 +3,9 @@ import express from 'express';
 import matchRoutes from '../src/routes/matches';
 import Match from '../src/models/Match';
 
+jest.mock('../src/middleware/auth', () => ({ authenticate: (_req: any, _res: any, next: any) => next() }));
+jest.mock('../src/utils/token', () => ({ verifyToken: jest.fn(() => ({ id: '1' })) }));
+
 jest.mock('../src/models/Match');
 
 const app = express();

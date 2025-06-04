@@ -6,6 +6,7 @@ export interface AthleteDocument extends Document {
   sport?: string;
   avatarUrl?: string;
   achievements?: string[];
+  highlightVideoUrl?: string;
 }
 
 const AthleteSchema = new Schema<AthleteDocument>({
@@ -13,7 +14,8 @@ const AthleteSchema = new Schema<AthleteDocument>({
   name: { type: String, required: true },
   sport: { type: String },
   avatarUrl: { type: String },
-  achievements: { type: [String], default: [] }
+  achievements: { type: [String], default: [] },
+  highlightVideoUrl: { type: String }
 });
 
 export default mongoose.models.Athlete || mongoose.model<AthleteDocument>('Athlete', AthleteSchema);
