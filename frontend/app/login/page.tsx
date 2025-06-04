@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 
 const HERO_IMAGE = '/hero-background.jpg';
@@ -12,8 +12,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   const router = useRouter();
-  const params = useSearchParams();
-  const verifyMsg = params.get('verify');
+  const [verifyMsg, setVerifyMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setVerifyMsg(new URLSearchParams(window.location.search).get('verify'));
+    }
+  }, []);
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
