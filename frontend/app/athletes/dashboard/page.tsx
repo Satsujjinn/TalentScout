@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
@@ -14,10 +15,15 @@ interface Match {
 
 export default function AthleteDashboard() {
   const { user } = useAuth();
+  const router = useRouter();
   const athleteId = user?.id || '';
   const [matches, setMatches] = useState<Match[]>([]);
 
   useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
     async function fetchMatches() {
       if (!athleteId) return;
       const res = await api.get(`/api/matches/athlete/${athleteId}`);
@@ -36,7 +42,7 @@ export default function AthleteDashboard() {
         });
       }
     });
-  }, [athleteId]);
+  }, [athleteId, user]);
 
   return (
     <div className="p-8">

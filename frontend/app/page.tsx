@@ -189,12 +189,6 @@ export default function HomePage() {
             >
               Get Started
             </Link>
-            <Link
-              href="/browse"
-              className="inline-block px-8 py-4 border border-blue-50 text-blue-50 font-semibold rounded-lg hover:bg-blue-50 hover:text-blue-700 transition"
-            >
-              Browse Athletes
-            </Link>
           </div>
         </div>
       </section>
