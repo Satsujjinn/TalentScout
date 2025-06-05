@@ -2,11 +2,13 @@ import request from 'supertest';
 import express from 'express';
 import matchRoutes from '../src/routes/matches';
 import Match from '../src/models/Match';
+import User from '../src/models/User';
 
 jest.mock('../src/middleware/auth', () => ({ authenticate: (_req: any, _res: any, next: any) => next() }));
 jest.mock('../src/utils/token', () => ({ verifyToken: jest.fn(() => ({ id: '1' })) }));
 
 jest.mock('../src/models/Match');
+jest.mock('../src/models/User');
 
 const app = express();
 app.use(express.json());
@@ -20,6 +22,7 @@ beforeEach(() => {
 
 describe('Match routes', () => {
   it('creates a match', async () => {
+    (User.findById as jest.Mock).mockResolvedValue({ isSubscribed: true });
     (Match.create as jest.Mock).mockResolvedValue(mockMatch);
     const res = await request(app)
       .post('/api/matches')
@@ -27,6 +30,14 @@ describe('Match routes', () => {
     expect(res.status).toBe(200);
     expect(Match.create).toHaveBeenCalledWith({ athleteId: 'a1', recruiterId: 'r1' });
     expect(res.body).toEqual(mockMatch);
+  });
+
+  it('requires subscription', async () => {
+    (User.findById as jest.Mock).mockResolvedValue({ isSubscribed: false });
+    const res = await request(app)
+      .post('/api/matches')
+      .send({ athleteId: 'a1', recruiterId: 'r1' });
+    expect(res.status).toBe(402);
   });
 
   it('updates a match status', async () => {

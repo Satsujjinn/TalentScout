@@ -32,8 +32,9 @@ TalentScout’s Athlete Edition is a platform where:
 - **Athletes** create profiles highlighting their skills, statistics, and video highlights.  
 - **AI** matches the best athletes to recruiters’ criteria.  
 - **Real‐time chat** and scheduling tools make communication seamless.  
-- **Secure payments** facilitate transactions for private coaching, training sessions, or endorsement deals.  
-- **Analytics** help recruiters track hiring trends and athletes monitor their engagement metrics.  
+- **Secure payments** facilitate transactions for private coaching, training sessions, or endorsement deals.
+- **Analytics** help recruiters track hiring trends and athletes monitor their engagement metrics.
+- **Subscription model** requires recruiters to purchase a monthly plan before matching with athletes.
 
 ---
 

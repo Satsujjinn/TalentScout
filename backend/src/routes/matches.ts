@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import Match from '../models/Match';
+import User from '../models/User';
 import { authenticate } from '../middleware/auth';
 
 const router = Router();
@@ -7,6 +8,10 @@ router.use(authenticate);
 
 router.post('/', async (req, res) => {
   const { athleteId, recruiterId } = req.body as { athleteId: string; recruiterId: string };
+  const recruiter = await User.findById(recruiterId);
+  if (!recruiter?.isSubscribed) {
+    return res.status(402).json({ message: 'Subscription required' });
+  }
   const match = await Match.create({ athleteId, recruiterId });
   res.json(match);
 });
