@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { connect } from './config/database';
+import { connect, getMongoUri } from './config/database';
 import User from './models/User';
 import Athlete from './models/Athlete';
 import Match from './models/Match';
@@ -10,7 +10,7 @@ import Message from './models/Message';
 dotenv.config();
 
 async function seed() {
-  const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/Talent';
+  const mongoUri = getMongoUri();
   await connect(mongoUri);
 
   const userCount = await User.countDocuments();
