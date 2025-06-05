@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { init } from './socket';
-import { connect } from './config/database';
+import { connect, getMongoUri } from './config/database';
 import authRoutes from './routes/auth';
 import athleteRoutes from './routes/athletes';
 import matchRoutes from './routes/matches';
@@ -29,8 +29,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/payments', paymentRoutes);
 
-const mongoUri =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/Talent';
+const mongoUri = getMongoUri();
 connect(mongoUri)
   .then(() => console.log(`MongoDB connected to ${mongoUri}`))
   .catch((err) => {

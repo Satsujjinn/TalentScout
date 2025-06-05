@@ -3,10 +3,13 @@ import User from '../src/models/User';
 import Athlete from '../src/models/Athlete';
 import Match from '../src/models/Match';
 import Message from '../src/models/Message';
-import { connect } from '../src/config/database';
+import { connect, getMongoUri } from '../src/config/database';
 import bcrypt from 'bcryptjs';
 
-jest.mock('../src/config/database', () => ({ connect: jest.fn(() => Promise.resolve()) }));
+jest.mock('../src/config/database', () => ({
+  connect: jest.fn(() => Promise.resolve()),
+  getMongoUri: jest.fn(() => 'mongodb://localhost:27017/Talent')
+}));
 jest.mock('../src/models/User');
 jest.mock('../src/models/Athlete');
 jest.mock('../src/models/Match');

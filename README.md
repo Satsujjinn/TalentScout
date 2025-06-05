@@ -99,10 +99,11 @@ JWT_SECRET=<your_jwt_secret>
 PORT=4000
 ```
 
-If `MONGODB_URI` is not provided, the backend falls back to a local
-MongoDB instance at `mongodb://localhost:27017/Talent`. You can override
-this by creating `backend/.env` based on `backend/.env.example` and supplying
-a full MongoDB Atlas connection string.
+Replace `<db_password>` in the example with your actual Atlas password. If
+`MONGODB_URI` is omitted or still contains the placeholder, the backend now
+defaults to `mongodb://localhost:27017/Talent`.
+Create `backend/.env` based on `backend/.env.example` and supply a valid
+connection string if you want to use MongoDB Atlas.
 
 ### MongoDB Setup
 
