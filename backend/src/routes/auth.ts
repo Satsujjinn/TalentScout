@@ -26,7 +26,16 @@ router.post('/register', async (req, res) => {
   }
 
   const token = signToken(user.id);
-  res.json({ token, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
+  res.json({
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      isSubscribed: user.isSubscribed,
+    },
+  });
 });
 
 router.post('/login', async (req, res) => {
@@ -36,7 +45,16 @@ router.post('/login', async (req, res) => {
   const valid = await bcrypt.compare(password, user.passwordHash);
   if (!valid) return res.status(401).json({ message: 'Invalid credentials' });
   const token = signToken(user.id);
-  res.json({ token, user: { id: user.id, email: user.email, name: user.name, role: user.role } });
+  res.json({
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      isSubscribed: user.isSubscribed,
+    },
+  });
 });
 
 export default router;

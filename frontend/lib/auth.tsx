@@ -15,6 +15,7 @@ interface AuthState {
     role: 'athlete' | 'recruiter',
     sport?: string
   ) => Promise<void>;
+  subscribe: () => Promise<void>;
   logout: () => void;
 }
 
@@ -63,6 +64,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('auth', JSON.stringify(res.data));
   };
 
+  const subscribe = async () => {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/payments/subscribe`, { userId: user?.id });
+    if (user) {
+      const updated = { ...user, isSubscribed: true } as UserProfile;
+      setUser(updated);
+      localStorage.setItem('auth', JSON.stringify({ token, user: updated }));
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -70,7 +80,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, token, login, signup, subscribe, logout }}>
       {children}
     </AuthContext.Provider>
   );

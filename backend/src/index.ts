@@ -10,6 +10,7 @@ import matchRoutes from './routes/matches';
 import messageRoutes from './routes/messages';
 import userRoutes from './routes/users';
 import healthRoutes from './routes/health';
+import paymentRoutes from './routes/payments';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use('/api/matches', matchRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/health', healthRoutes);
+app.use('/api/payments', paymentRoutes);
 
 const mongoUri =
   process.env.MONGODB_URI || 'mongodb://localhost:27017/Talent';

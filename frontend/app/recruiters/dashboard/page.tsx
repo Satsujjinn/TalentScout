@@ -88,6 +88,14 @@ export default function RecruiterDashboard() {
           placeholder="Filter by achievement"
         />
       </div>
+      {!user?.isSubscribed && (
+        <p className="mb-4 text-red-600">
+          You need a subscription to match with athletes.{' '}
+          <Link href="/subscribe" className="underline">
+            Subscribe now
+          </Link>
+        </p>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {athletes
           .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
@@ -108,6 +116,7 @@ export default function RecruiterDashboard() {
             <FifaPlayerCard
               key={athlete._id}
               athlete={athlete}
+              disabled={!user?.isSubscribed}
               onMatch={() =>
                 api.post('/api/matches', { athleteId: athlete._id, recruiterId })
               }

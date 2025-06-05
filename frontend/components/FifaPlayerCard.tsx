@@ -12,9 +12,10 @@ export interface Athlete {
 interface FifaPlayerCardProps {
   athlete: Athlete;
   onMatch: () => void;
+  disabled?: boolean;
 }
 
-export default function FifaPlayerCard({ athlete, onMatch }: FifaPlayerCardProps) {
+export default function FifaPlayerCard({ athlete, onMatch, disabled }: FifaPlayerCardProps) {
   const rating = Math.min(99, 60 + (athlete.achievements?.length || 0) * 5);
   return (
     <div className="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-blue-50 rounded-lg shadow-lg p-4 flex flex-col items-center">
@@ -44,7 +45,8 @@ export default function FifaPlayerCard({ athlete, onMatch }: FifaPlayerCardProps
         )}
         <button
           onClick={onMatch}
-          className="mt-3 px-3 py-1 bg-orange-600 text-white rounded"
+          disabled={disabled}
+          className="mt-3 px-3 py-1 bg-orange-600 text-white rounded disabled:opacity-50"
         >
           Match
         </button>

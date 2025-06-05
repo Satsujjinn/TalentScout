@@ -5,6 +5,7 @@ export interface UserProfile {
   avatar?: string;
   role: 'athlete' | 'recruiter';
   isVerified: boolean;
+  isSubscribed: boolean;
   createdAt: string;
   updatedAt: string;
 }
