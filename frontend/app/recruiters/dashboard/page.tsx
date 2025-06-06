@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
-import FifaPlayerCard from '@/components/FifaPlayerCard';
+import AthleteSwiper from '@/components/AthleteSwiper';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -96,32 +96,26 @@ export default function RecruiterDashboard() {
           </Link>
         </p>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {athletes
-          .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
-          .filter((a) =>
-            sportFilter === ''
-              ? true
-              : (a.sport || '').toLowerCase().includes(sportFilter.toLowerCase())
-          )
-          .filter((a) =>
-            achFilter === ''
-              ? true
-              : (a.achievements || [])
-                  .join(' ')
-                  .toLowerCase()
-                  .includes(achFilter.toLowerCase())
-          )
-          .map((athlete) => (
-            <FifaPlayerCard
-              key={athlete._id}
-              athlete={athlete}
-              disabled={!user?.isSubscribed}
-              onMatch={() =>
-                api.post('/api/matches', { athleteId: athlete._id, recruiterId })
-              }
-            />
-          ))}
+      <div className="flex justify-center mb-6">
+        <AthleteSwiper
+          athletes={athletes
+            .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
+            .filter((a) =>
+              sportFilter === ''
+                ? true
+                : (a.sport || '').toLowerCase().includes(sportFilter.toLowerCase())
+            )
+            .filter((a) =>
+              achFilter === ''
+                ? true
+                : (a.achievements || [])
+                    .join(' ')
+                    .toLowerCase()
+                    .includes(achFilter.toLowerCase())
+            )}
+          disabled={!user?.isSubscribed}
+          onMatch={(id) => api.post('/api/matches', { athleteId: id, recruiterId })}
+        />
       </div>
 
       <h2 className="text-2xl font-bold mt-8 mb-2">Matches</h2>
