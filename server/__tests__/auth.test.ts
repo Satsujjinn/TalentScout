@@ -1,17 +1,29 @@
 import request from 'supertest';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
+process.env.NODE_ENV = 'test';
 import app from '../src/index';
+import User from '../src/models/User';
+
+type UserType = { id: string; username: string; password: string; role: string };
+const users: UserType[] = [];
+
+jest.mock('../src/models/User', () => ({
+  __esModule: true,
+  default: {
+    create: jest.fn(async (data: Omit<UserType, 'id'>) => {
+      const user = { id: String(users.length + 1), ...data } as UserType;
+      users.push(user);
+      return user;
+    }),
+    findOne: jest.fn(async (query: Partial<UserType>) =>
+      users.find((u) => u.username === query.username) || null
+    ),
+  },
+}));
 
 describe('auth flow', () => {
-  let mongo: MongoMemoryServer;
-  beforeAll(async () => {
-    mongo = await MongoMemoryServer.create();
-    await mongoose.connect(mongo.getUri());
-  });
-  afterAll(async () => {
-    await mongoose.disconnect();
-    await mongo.stop();
+  beforeEach(() => {
+    users.length = 0;
+    jest.clearAllMocks();
   });
 
   it('registers and logs in', async () => {

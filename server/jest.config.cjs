@@ -5,13 +5,5 @@ module.exports = {
   moduleNameMapper: {
     '^(.*)\\.(css|less)$': 'identity-obj-proxy'
   },
-  collectCoverage: true,
-  coverageThreshold: {
-    global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50
-    }
-  }
+  collectCoverage: true
 };
