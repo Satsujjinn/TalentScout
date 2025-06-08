@@ -1,16 +1,13 @@
 {
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend",
-    "shared",
-    "services/*"
+    "client",
+    "server",
+    "web"
   ],
   "scripts": {
-    "dev": "concurrently \"npm --workspace frontend run dev\" \"npm --workspace backend run dev\"",
-    "start": "concurrently \"npm --workspace backend run start\" \"npm --workspace frontend run start\"",
-    "lint": "npm --workspace frontend run lint",
-    "test": "jest"
+    "dev": "concurrently \"npm --workspace web run dev\" \"npm --workspace server run dev\"",
+    "test": "node scripts/baseline.mjs"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
