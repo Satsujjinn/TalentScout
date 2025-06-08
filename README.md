@@ -3,7 +3,7 @@
 This repository mirrors the basic structure of **TalentSite**. The monorepo contains three packages:
 
 - **client/** – static HTML forms for manual testing
-- **server/** – Express API backed by MongoDB
+- **server/** – Express API backed by MongoDB (sole backend)
 - **web/** – Next.js application
 
 ## Getting Started
