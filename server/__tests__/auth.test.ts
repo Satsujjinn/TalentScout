@@ -1,7 +1,9 @@
 import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import app from '../src/index';
+
+process.env.JWT_SECRET = 'testsecret';
+const app = require('../src/index').default;
 
 describe('auth flow', () => {
   let mongo: MongoMemoryServer;

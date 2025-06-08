@@ -16,6 +16,9 @@ cp web/.env.example web/.env
 npm install --workspaces
 ```
 
+Set a value for `JWT_SECRET` in each `.env` file. The applications will throw
+an error if this variable is missing.
+
 ### Running Locally
 
 ```bash
