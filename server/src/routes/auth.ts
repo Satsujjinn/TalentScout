@@ -25,8 +25,23 @@ router.post('/login', async (req, res) => {
   res.json({ token });
 });
 
-router.post('/verify', (req, res) => {
-  res.json({ message: 'Verification stub' });
+router.post('/verify', async (req, res) => {
+  const token =
+    req.headers.authorization?.replace('Bearer ', '') ||
+    req.cookies.token;
+  if (!token) return res.status(401).json({ message: 'No token' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret') as {
+      id: string;
+    };
+
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ message: 'Token valid', user });
+  } catch {
+    res.status(401).json({ message: 'Invalid token' });
+  }
 });
 
 export default router;
