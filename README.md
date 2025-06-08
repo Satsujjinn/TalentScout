@@ -49,3 +49,35 @@ A simple `docker-compose.yml` is provided to start MongoDB, the server and the w
 ## Deployment
 
 Deploy the Next.js app with Vercel or any Node hosting. Deploy the Express server to a service like Heroku or Render. Remember to set the environment variables shown in the `.env.example` files.
+
+## Production Setup
+
+Before building for production, copy the example environment files and add your
+production secrets:
+
+```bash
+cp server/.env.example server/.env
+cp web/.env.example web/.env
+# edit these files with real values
+```
+
+Run the full test suite and ensure it passes:
+
+```bash
+npm test
+```
+
+Once tests succeed, build the project:
+
+```bash
+npm run build
+```
+
+You can then launch the application in Docker:
+
+```bash
+docker compose up --build
+```
+
+Tests must pass and all secrets must be configured for the container to run
+correctly.
