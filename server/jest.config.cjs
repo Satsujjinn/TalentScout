@@ -1,5 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
+  globals: { 'ts-jest': { tsconfig: 'tsconfig.json', diagnostics: false } },
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.test.ts'],
   moduleNameMapper: {
