@@ -51,7 +51,7 @@ export default function AthleteDashboard() {
       <main className="bg-gray-50 min-h-screen p-6">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-bold mb-4">Athlete Dashboard</h1>
-          <Link href="/athletes/profile" className="underline text-blue-600 block mb-4">Edit Profile</Link>
+          <Link href="/athletes/profile" className="underline text-green-600 block mb-4">Edit Profile</Link>
           <p className="mb-4">Waiting for recruiters to match with you...</p>
           <ul className="space-y-2">
         {matches.map((m) => (
@@ -80,7 +80,7 @@ export default function AthleteDashboard() {
             {m.status === 'accepted' && (
               <Link
                 href={`/chat/${m._id}`}
-                className="ml-2 text-blue-600 underline"
+                className="ml-2 text-green-600 underline"
               >
                 Open Chat
               </Link>
