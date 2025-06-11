@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const u = await login(email, password);
+    const u = await login(email, password, role);
     if (u.role !== role) {
       alert('Incorrect role selected');
       return;
