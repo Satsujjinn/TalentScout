@@ -19,7 +19,10 @@ if (useMock) {
       if (url.startsWith('/api/athletes')) {
         return { data: mockAthletes };
       }
-      if (url.includes('/api/matches/')) {
+      if (url.startsWith('/api/matches/athlete/') || url.startsWith('/api/matches/recruiter/')) {
+        return { data: [] };
+      }
+      if (url.startsWith('/api/matches/')) {
         return { data: { status: 'accepted' } };
       }
       return { data: [] };
