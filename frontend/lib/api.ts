@@ -7,11 +7,38 @@ let api: any;
 if (useMock) {
   const mockAthletes = [
     {
-      _id: 'a1',
-      name: 'Sample Athlete',
-      sport: 'soccer',
-      achievements: ['champion'],
+      _id: 'ath1',
+      name: 'Jane Doe',
+      sport: 'Soccer',
+      avatarUrl: 'https://picsum.photos/seed/ath1/200/200',
+      achievements: ['State Champion', 'MVP 2023'],
     },
+    {
+      _id: 'ath2',
+      name: 'John Smith',
+      sport: 'Basketball',
+      avatarUrl: 'https://picsum.photos/seed/ath2/200/200',
+      achievements: ['All-American', '3x All-Star'],
+    },
+    {
+      _id: 'ath3',
+      name: 'Maria Garcia',
+      sport: 'Tennis',
+      avatarUrl: 'https://picsum.photos/seed/ath3/200/200',
+      achievements: ['Grand Slam Finalist'],
+    },
+    {
+      _id: 'ath4',
+      name: 'Liu Wei',
+      sport: 'Table Tennis',
+      avatarUrl: 'https://picsum.photos/seed/ath4/200/200',
+      achievements: ['World Junior Champion'],
+    },
+  ];
+
+  const mockMatches = [
+    { _id: 'm1', athleteId: 'ath1', recruiterId: 'rec1', status: 'pending' },
+    { _id: 'm2', athleteId: 'ath1', recruiterId: 'rec2', status: 'accepted' },
   ];
 
   api = {
@@ -19,8 +46,11 @@ if (useMock) {
       if (url.startsWith('/api/athletes')) {
         return { data: mockAthletes };
       }
-      if (url.startsWith('/api/matches/athlete/') || url.startsWith('/api/matches/recruiter/')) {
-        return { data: [] };
+      if (url.startsWith('/api/matches/athlete/')) {
+        return { data: mockMatches };
+      }
+      if (url.startsWith('/api/matches/recruiter/')) {
+        return { data: mockMatches };
       }
       if (url.startsWith('/api/matches/')) {
         return { data: { status: 'accepted' } };

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
+import DashboardHeader from '@/components/DashboardHeader';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -45,11 +46,14 @@ export default function AthleteDashboard() {
   }, [athleteId, user]);
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-4">Athlete Dashboard</h1>
-      <Link href="/athletes/profile" className="underline text-blue-600 block mb-4">Edit Profile</Link>
-      <p className="mb-4">Waiting for recruiters to match with you...</p>
-      <ul className="space-y-2">
+    <>
+      <DashboardHeader />
+      <main className="bg-gray-50 min-h-screen p-6">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl font-bold mb-4">Athlete Dashboard</h1>
+          <Link href="/athletes/profile" className="underline text-blue-600 block mb-4">Edit Profile</Link>
+          <p className="mb-4">Waiting for recruiters to match with you...</p>
+          <ul className="space-y-2">
         {matches.map((m) => (
           <li key={m._id} className="border p-2 rounded">
             Recruiter {m.recruiterId} - {m.status}
@@ -84,6 +88,8 @@ export default function AthleteDashboard() {
           </li>
         ))}
       </ul>
-    </div>
+        </div>
+      </main>
+    </>
   );
 }

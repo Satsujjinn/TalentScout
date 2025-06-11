@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
 import AthleteSwiper from '@/components/AthleteSwiper';
+import DashboardHeader from '@/components/DashboardHeader';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -66,8 +67,11 @@ export default function RecruiterDashboard() {
   }, [nameFilter, sportFilter, achFilter, router]);
 
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-4">Recruiter Dashboard</h1>
+    <>
+      <DashboardHeader />
+      <main className="bg-gray-50 min-h-screen p-6">
+        <div className="max-w-5xl mx-auto">
+          <h1 className="text-3xl font-bold mb-4">Recruiter Dashboard</h1>
       <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-2">
         <input
           value={nameFilter}
@@ -118,22 +122,24 @@ export default function RecruiterDashboard() {
         />
       </div>
 
-      <h2 className="text-2xl font-bold mt-8 mb-2">Matches</h2>
-      <ul className="space-y-2">
-        {matches.map((m) => (
-          <li key={m._id} className="border p-2 rounded">
-            Athlete {m.athleteId} - {m.status}
-            {m.status === 'accepted' && (
-              <Link
-                href={`/chat/${m._id}`}
-                className="underline text-blue-600 ml-2"
-              >
-                Chat
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+          <h2 className="text-2xl font-bold mt-8 mb-2">Matches</h2>
+          <ul className="space-y-2">
+            {matches.map((m) => (
+              <li key={m._id} className="border p-2 rounded">
+                Athlete {m.athleteId} - {m.status}
+                {m.status === 'accepted' && (
+                  <Link
+                    href={`/chat/${m._id}`}
+                    className="underline text-blue-600 ml-2"
+                  >
+                    Chat
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </main>
+    </>
   );
 }
