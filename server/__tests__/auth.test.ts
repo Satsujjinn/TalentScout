@@ -1,6 +1,21 @@
 import request from 'supertest';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-import mongoose from 'mongoose';
+// Mock the User model with a simple in-memory store so tests do not
+// require a real MongoDB instance.
+jest.mock('../src/models/User', () => {
+  const users: any[] = [];
+  return {
+    __esModule: true,
+    default: {
+      create: async (data: any) => {
+        const user = { id: String(users.length + 1), ...data };
+        users.push(user);
+        return user;
+      },
+      findOne: async (query: any) => users.find((u) => u.username === query.username) || null,
+      find: async (query: any) => users.filter((u) => u.role === query.role)
+    }
+  };
+});
 
 jest.setTimeout(20000);
 
@@ -8,15 +23,6 @@ process.env.JWT_SECRET = 'testsecret';
 const app = require('../src/index').default;
 
 describe('auth flow', () => {
-  let mongo: MongoMemoryServer;
-  beforeAll(async () => {
-    mongo = await MongoMemoryServer.create({ binary: { version: '6.0.5' } });
-    await mongoose.connect(mongo.getUri());
-  });
-  afterAll(async () => {
-    await mongoose.disconnect();
-    await mongo.stop();
-  });
 
   it('registers and logs in', async () => {
     const res = await request(app)
