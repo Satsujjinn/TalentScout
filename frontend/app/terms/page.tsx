@@ -2,16 +2,30 @@
 
 export default function TermsPage() {
   return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="p-8 max-w-3xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold mb-4">Terms of Service</h1>
-      <p className="mb-4">
-        These terms govern the use of the TalentScout platform. By accessing the
-        site you agree to abide by all applicable rules and regulations.
-      </p>
-      <p>
-        This project is a demo and the terms presented here are for illustrative
-        purposes only.
-      </p>
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Acceptance of Terms</h2>
+        <p>
+          By accessing this demo you agree to use it solely for evaluation
+          purposes. The application is provided "as is" with no warranties or
+          guarantees.
+        </p>
+      </section>
+      <section>
+        <h2 className="text-xl font-semibold mb-2">User Conduct</h2>
+        <p>
+          Please refrain from uploading sensitive information. All content should
+          be considered public and temporary.
+        </p>
+      </section>
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Limitation of Liability</h2>
+        <p>
+          TalentScout is not liable for any damages arising from use of this
+          demonstration site.
+        </p>
+      </section>
     </div>
   );
 }
