@@ -130,7 +130,7 @@ export default function RecruiterDashboard() {
                 {m.status === 'accepted' && (
                   <Link
                     href={`/chat/${m._id}`}
-                    className="underline text-blue-600 ml-2"
+                    className="underline text-green-600 ml-2"
                   >
                     Chat
                   </Link>

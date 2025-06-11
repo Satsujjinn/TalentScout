@@ -26,14 +26,14 @@ export default function ContactPage() {
         <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
         <p className="mb-4">
           For inquiries please reach out at{' '}
-          <a href="mailto:support@talentscout.example.com" className="text-blue-600 underline">
+          <a href="mailto:support@talentscout.example.com" className="text-green-600 underline">
             support@talentscout.example.com
           </a>
           .
         </p>
         <p>
           You can also visit our{' '}
-          <Link href="/about" className="text-blue-600 underline">
+          <Link href="/about" className="text-green-600 underline">
             About page
           </Link>{' '}
           to learn more about the project.
@@ -42,29 +42,29 @@ export default function ContactPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-blue-700 mb-1">Name</label>
+          <label className="block text-sm font-medium text-green-700 mb-1">Name</label>
           <input
             type="text"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-blue-700 mb-1">Email</label>
+          <label className="block text-sm font-medium text-green-700 mb-1">Email</label>
           <input
             type="email"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-blue-700 mb-1">Message</label>
+          <label className="block text-sm font-medium text-green-700 mb-1">Message</label>
           <textarea
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400"
             rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
