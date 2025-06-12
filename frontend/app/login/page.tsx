@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
+import { toast } from 'react-hot-toast';
 
 const HERO_IMAGE = '/hero-background.jpg';
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
     e.preventDefault();
     const u = await login(email, password, role);
     if (u.role !== role) {
-      alert('Incorrect role selected');
+      toast.error('Incorrect role selected');
       return;
     }
     if (u.role === 'recruiter') router.push('/recruiters/dashboard');

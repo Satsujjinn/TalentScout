@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
+import { toast } from 'react-hot-toast';
 
 export default function AthleteProfile() {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ export default function AthleteProfile() {
       achievements: achievementsArr,
       highlightVideoUrl: highlightUrl,
     });
-    alert('Profile updated');
+    toast.success('Profile updated');
   };
 
   return (
