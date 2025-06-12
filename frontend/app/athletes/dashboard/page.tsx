@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import DashboardHeader from '@/components/DashboardHeader';
+import Skeleton from 'react-loading-skeleton';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -19,6 +20,8 @@ export default function AthleteDashboard() {
   const router = useRouter();
   const athleteId = user?.id || '';
   const [matches, setMatches] = useState<Match[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -29,6 +32,7 @@ export default function AthleteDashboard() {
       if (!athleteId) return;
       const res = await api.get(`/api/matches/athlete/${athleteId}`);
       setMatches(res.data);
+      setLoading(false);
     }
     fetchMatches();
     const socket = getSocket(athleteId);
@@ -45,6 +49,13 @@ export default function AthleteDashboard() {
     });
   }, [athleteId, user]);
 
+  useEffect(() => {
+    if (!loading) {
+      const id = requestAnimationFrame(() => setFadeIn(true));
+      return () => cancelAnimationFrame(id);
+    }
+  }, [loading]);
+
   return (
     <>
       <DashboardHeader />
@@ -53,9 +64,21 @@ export default function AthleteDashboard() {
           <h1 className="text-3xl font-bold mb-4">Athlete Dashboard</h1>
           <Link href="/athletes/profile" className="underline text-green-600 block mb-4">Edit Profile</Link>
           <p className="mb-4">Waiting for recruiters to match with you...</p>
-          <ul className="space-y-2">
-        {matches.map((m) => (
-          <li key={m._id} className="border p-2 rounded">
+          {loading && (
+            <ul className="space-y-2 mb-2">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <li key={i} className="border p-2 rounded">
+                  <Skeleton height={24} />
+                </li>
+              ))}
+            </ul>
+          )}
+          {!loading && (
+            <ul
+              className={`space-y-2 transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}
+            >
+              {matches.map((m) => (
+                <li key={m._id} className="border p-2 rounded">
             Recruiter {m.recruiterId} - {m.status}
             {m.status === 'pending' && (
               <>
@@ -85,9 +108,10 @@ export default function AthleteDashboard() {
                 Open Chat
               </Link>
             )}
-          </li>
-        ))}
-      </ul>
+              </li>
+              ))}
+            </ul>
+          )}
         </div>
       </main>
     </>

@@ -5,6 +5,7 @@ import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
 import AthleteGrid from '@/components/AthleteGrid';
 import DashboardHeader from '@/components/DashboardHeader';
+import Skeleton from 'react-loading-skeleton';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 
@@ -33,6 +34,8 @@ export default function RecruiterDashboard() {
   const [nameFilter, setNameFilter] = useState(searchParams.get('name') || '');
   const [sportFilter, setSportFilter] = useState(searchParams.get('sport') || '');
   const [achFilter, setAchFilter] = useState(searchParams.get('ach') || '');
+  const [loading, setLoading] = useState(true);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -42,6 +45,7 @@ export default function RecruiterDashboard() {
     async function fetchAthletes() {
       const res = await api.get('/api/athletes');
       setAthletes(res.data);
+      setLoading(false);
     }
     fetchAthletes();
     const socket = getSocket(recruiterId);
@@ -57,6 +61,13 @@ export default function RecruiterDashboard() {
       }
     });
   }, [recruiterId, user, router]);
+
+  useEffect(() => {
+    if (!loading) {
+      const id = requestAnimationFrame(() => setFadeIn(true));
+      return () => cancelAnimationFrame(id);
+    }
+  }, [loading]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -101,25 +112,44 @@ export default function RecruiterDashboard() {
         </p>
       )}
       <div className="mb-6">
-        <AthleteGrid
-          athletes={athletes
-            .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
-            .filter((a) =>
-              sportFilter === ''
-                ? true
-                : (a.sport || '').toLowerCase().includes(sportFilter.toLowerCase())
-            )
-            .filter((a) =>
-              achFilter === ''
-                ? true
-                : (a.achievements || [])
-                    .join(' ')
-                    .toLowerCase()
-                    .includes(achFilter.toLowerCase())
-            )}
-          disabled={!user?.isSubscribed}
-          onMatch={(id) => api.post('/api/matches', { athleteId: id, recruiterId })}
-        />
+        {loading && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="aspect-square">
+                <Skeleton className="w-full h-full" />
+              </div>
+            ))}
+          </div>
+        )}
+        {!loading && (
+          <div
+            className={`transition-opacity duration-500 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <AthleteGrid
+              athletes={athletes
+                .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
+                .filter((a) =>
+                  sportFilter === ''
+                    ? true
+                    : (a.sport || '')
+                        .toLowerCase()
+                        .includes(sportFilter.toLowerCase())
+                )
+                .filter((a) =>
+                  achFilter === ''
+                    ? true
+                    : (a.achievements || [])
+                        .join(' ')
+                        .toLowerCase()
+                        .includes(achFilter.toLowerCase())
+                )}
+              disabled={!user?.isSubscribed}
+              onMatch={(id) =>
+                api.post('/api/matches', { athleteId: id, recruiterId })
+              }
+            />
+          </div>
+        )}
       </div>
 
           <h2 className="text-2xl font-bold mt-8 mb-2">Matches</h2>

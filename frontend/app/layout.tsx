@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import 'react-loading-skeleton/dist/skeleton.css';
 import { AuthProvider } from "../lib/auth";
 
 export const metadata: Metadata = {
