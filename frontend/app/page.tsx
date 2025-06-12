@@ -10,6 +10,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import FifaPlayerCard from '@/components/FifaPlayerCard';
 
 // ----------------------------------------------------------------------------
 // HERO IMAGE (replace '/hero-background.jpg' with your actual path)
@@ -156,6 +157,39 @@ const TESTIMONIALS = [
   },
 ];
 
+// ----------------------------------------------------------------------------
+// SAMPLE ATHLETES FOR SHOWCASE
+const SAMPLE_ATHLETES = [
+  {
+    _id: '1',
+    name: 'Chris Taylor',
+    sport: 'Soccer',
+    avatarUrl: '/athletes/sample1.jpg',
+    achievements: ['MVP 2022', 'Top Scorer'],
+  },
+  {
+    _id: '2',
+    name: 'Dana Smith',
+    sport: 'Basketball',
+    avatarUrl: '/athletes/sample2.jpg',
+    achievements: ['All-Star Team', 'Championship Winner'],
+  },
+  {
+    _id: '3',
+    name: 'Evan Rodriguez',
+    sport: 'Tennis',
+    avatarUrl: '/athletes/sample3.jpg',
+    achievements: ['Grand Slam Finalist'],
+  },
+  {
+    _id: '4',
+    name: 'Fatima Khan',
+    sport: 'Running',
+    avatarUrl: '/athletes/sample4.jpg',
+    achievements: ['Olympic Qualifier'],
+  },
+];
+
 export default function HomePage() {
   return (
     <div className="flex flex-col font-sans">
@@ -195,6 +229,24 @@ export default function HomePage() {
             >
               Sign In
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED ATHLETES */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-green-700 mb-12">
+            Featured Athletes
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+            {SAMPLE_ATHLETES.map((athlete) => (
+              <FifaPlayerCard
+                key={athlete._id}
+                athlete={athlete}
+                onMatch={() => {}}
+              />
+            ))}
           </div>
         </div>
       </section>
