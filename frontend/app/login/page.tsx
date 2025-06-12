@@ -39,9 +39,9 @@ export default function LoginPage() {
         className="relative flex-1 bg-cover bg-center"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-        <div className="absolute inset-0 bg-green-900 bg-opacity-60" />
+        <div className="absolute inset-0 bg-green-900 bg-opacity-60 dark:bg-black dark:bg-opacity-60" />
         <div className="relative z-10 flex items-center justify-center h-full px-4">
-          <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-80">
+          <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-80">
           <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
             Sign In
           </h1>

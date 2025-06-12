@@ -198,7 +198,7 @@ export default function HomePage() {
         className="relative h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${HERO_IMAGE})` }}
       >
-        <div className="absolute inset-0 bg-green-900 bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-green-900 bg-opacity-60 dark:bg-black dark:bg-opacity-60"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
           <motion.h1
             className="text-6xl md:text-7xl font-extrabold text-green-50 mb-4"
@@ -383,7 +383,7 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-8 bg-green-900 text-green-200 text-center">
+      <footer className="py-8 bg-green-900 text-green-200 dark:bg-gray-900 dark:text-gray-300 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <nav className="flex justify-center space-x-6 mb-4">
             <Link href="/about" className="hover:text-white">About</Link>
