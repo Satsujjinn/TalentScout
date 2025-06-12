@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request } from 'express';
 import Athlete from '../models/Athlete';
 import { authenticate } from '../middleware/auth';
 import multer from 'multer';
@@ -37,7 +37,11 @@ router.put('/:id', async (req, res) => {
 });
 
 // @ts-ignore - multer typings conflict in tests
-router.post('/:id/highlight', upload.single('video'), async (req, res) => {
+interface RequestWithFile extends Request {
+  file?: Express.Multer.File;
+}
+
+router.post('/:id/highlight', upload.single('video'), async (req: RequestWithFile, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
   const key = `highlights/${req.params.id}/${Date.now()}_${req.file.originalname}`;
   const url = await uploadFile(key, req.file.buffer, req.file.mimetype);
