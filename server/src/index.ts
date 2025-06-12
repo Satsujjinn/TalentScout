@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth';
 import talentRoutes from './routes/talents';
+import leaderboardRoutes from './routes/leaderboard';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/talents', talentRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/talentsite')
