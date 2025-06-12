@@ -24,7 +24,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Offline Demo
 
-If `NEXT_PUBLIC_API_URL` is not set, the dashboards use mock data. This lets you explore the recruiter and athlete views without running a backend.
+Copy `.env.local.example` to `.env.local` and leave `NEXT_PUBLIC_API_URL` unset to use the built‑in mock API:
+
+```bash
+cp .env.local.example .env.local
+npm run demo
+```
+
+The `demo` script starts the dev server with mock data so you can explore the recruiter and athlete views without running a backend.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

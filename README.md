@@ -27,6 +27,14 @@ npm run dev
 
 The API runs on `http://localhost:3001` and the Next.js app on `http://localhost:3000`.
 
+To try the dashboards without a backend, use the `frontend` package which ships with mock data:
+
+```bash
+cd frontend
+cp .env.local.example .env.local
+npm run demo
+```
+
 ### Running Tests
 
 ```bash
