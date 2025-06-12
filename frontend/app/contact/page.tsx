@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Map = dynamic(() => import('../../components/Map'), { ssr: false });
 
@@ -13,8 +14,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // eslint-disable-next-line no-alert
-    alert('Message sent! (not really, this is a demo)');
+    toast.success('Message sent! (not really, this is a demo)');
     setName('');
     setEmail('');
     setMessage('');
