@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getSocket } from '@/lib/socket';
 import Link from 'next/link';
-import AthleteSwiper from '@/components/AthleteSwiper';
+import AthleteGrid from '@/components/AthleteGrid';
 import DashboardHeader from '@/components/DashboardHeader';
 import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
@@ -100,8 +100,8 @@ export default function RecruiterDashboard() {
           </Link>
         </p>
       )}
-      <div className="flex justify-center mb-6">
-        <AthleteSwiper
+      <div className="mb-6">
+        <AthleteGrid
           athletes={athletes
             .filter((a) => a.name.toLowerCase().includes(nameFilter.toLowerCase()))
             .filter((a) =>
