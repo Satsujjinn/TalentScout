@@ -3,5 +3,11 @@ const createJestConfig = nextJest({ dir: './' });
 module.exports = createJestConfig({
   testEnvironment: 'jsdom',
   collectCoverage: true,
-  coverageThreshold: { global: { branches: 50, functions: 50, lines: 50, statements: 50 } }
+  coverageThreshold: { global: { branches: 50, functions: 50, lines: 50, statements: 50 } },
+  moduleNameMapper: {
+    '^../../shared/(.*)$': '<rootDir>/../shared/$1'
+  },
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }]
+  }
 });
