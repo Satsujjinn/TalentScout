@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { execSync } from 'child_process';
 
-const packages = ['server', 'web'];
+const packages = ['web'];
 let report = '';
 
 for (const pkg of packages) {

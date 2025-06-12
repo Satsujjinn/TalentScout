@@ -2,8 +2,6 @@
   "files": [],
   "references": [
     { "path": "shared" },
-    { "path": "backend" },
-    { "path": "frontend" },
-    { "path": "services/media" }
+    { "path": "frontend" }
   ]
 }

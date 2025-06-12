@@ -1,9 +1,8 @@
 # TalentScout
 
-This repository mirrors the basic structure of **TalentSite**. The monorepo contains three packages:
+This repository mirrors the basic structure of **TalentSite**. The monorepo contains two packages:
 
 - **client/** – static HTML forms for manual testing
-- **server/** – Express API backed by MongoDB
 - **web/** – Next.js application
 
 ## Getting Started
@@ -11,7 +10,6 @@ This repository mirrors the basic structure of **TalentSite**. The monorepo cont
 ### Setup
 
 ```bash
-cp server/.env.example server/.env
 cp web/.env.example web/.env
 npm install --workspaces
 ```
@@ -25,7 +23,7 @@ an error if this variable is missing.
 npm run dev
 ```
 
-The API runs on `http://localhost:3001` and the Next.js app on `http://localhost:3000`.
+
 
 To try the dashboards without a backend, use the `frontend` package which ships with mock data:
 
@@ -51,20 +49,13 @@ npm test
 
 This executes the baseline script which runs unit tests for each package and writes `BASELINE_REPORT.md`.
 
-### MongoDB Binary for Offline Tests
-
-```bash
-npx mongodb-memory-server download --downloadDir ./mongodb-binaries --version 6.0.5
-DOWNLOAD_DIR=./mongodb-binaries npm test
-```
-
 ### Docker Compose
 
-A simple `docker-compose.yml` is provided to start MongoDB, the server and the web app together.
+A simple `docker-compose.yml` is provided to run the Next.js app in a container.
 
 ## Deployment
 
-Deploy the Next.js app with Vercel or any Node hosting. Deploy the Express server to a service like Heroku or Render. Remember to set the environment variables shown in the `.env.example` files.
+Deploy the Next.js app with Vercel or any Node hosting. Remember to set the environment variables shown in the `.env.example` file.
 
 ## Production Setup
 
@@ -72,9 +63,8 @@ Before building for production, copy the example environment files and add your
 production secrets:
 
 ```bash
-cp server/.env.example server/.env
 cp web/.env.example web/.env
-# edit these files with real values
+# edit this file with real values
 ```
 
 Run the full test suite and ensure it passes:
