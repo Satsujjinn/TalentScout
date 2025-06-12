@@ -8,7 +8,8 @@ jest.mock('../lib/auth', () => ({
   useAuth: () => ({ user: { id: 'r1', isSubscribed: true } })
 }));
 
-jest.mock('../lib/api', () => ({
+jest.mock('@/lib/api', () => ({
+  __esModule: true,
   default: {
     get: jest.fn(() => Promise.resolve({ data: [
       { _id: '1', name: 'Athlete 1' },
@@ -21,6 +22,9 @@ jest.mock('../lib/api', () => ({
 jest.mock('../lib/socket', () => ({
   getSocket: () => ({ on: jest.fn() })
 }));
+
+// Mock shared component to avoid transform issues
+jest.mock('shared/src/components/FifaPlayerCard', () => () => <button>Match</button>);
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn(), replace: jest.fn() }),
