@@ -2,11 +2,11 @@
   "private": true,
   "workspaces": [
     "client",
-    "server",
-    "web"
+    "web",
+    "frontend"
   ],
   "scripts": {
-    "dev": "concurrently \"npm --workspace web run dev\" \"npm --workspace server run dev\"",
+    "dev": "npm --workspace web run dev",
     "test": "node scripts/baseline.mjs"
   },
   "devDependencies": {
