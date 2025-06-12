@@ -1,5 +1,5 @@
 'use client';
-import FifaPlayerCard, { Athlete } from './FifaPlayerCard';
+import FifaPlayerCard, { Athlete } from '../../shared/src/components/FifaPlayerCard';
 
 interface AthleteGridProps {
   athletes: Athlete[];

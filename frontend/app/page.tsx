@@ -10,7 +10,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import FifaPlayerCard from '@/components/FifaPlayerCard';
+import FifaPlayerCard from '../../shared/src/components/FifaPlayerCard';
 
 // ----------------------------------------------------------------------------
 // HERO IMAGE (replace '/hero-background.jpg' with your actual path)

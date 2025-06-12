@@ -6,7 +6,7 @@ jest.mock('next/image', () => ({
   default: ({ src, alt }: any) => <img src={src} alt={alt} />,
 }));
 
-import FifaPlayerCard, { Athlete } from '../components/FifaPlayerCard';
+import FifaPlayerCard, { Athlete } from '../../shared/src/components/FifaPlayerCard';
 
 const athlete: Athlete = { _id: '1', name: 'Test Player' };
 
