@@ -5,7 +5,7 @@ import { useAuth } from '@/lib/auth';
 export default function DashboardHeader() {
   const { user, logout } = useAuth();
   return (
-    <header className="bg-blue-900 text-white">
+    <header className="bg-green-900 text-white">
       <div className="max-w-5xl mx-auto flex items-center justify-between p-4">
         <Link href="/" className="font-bold text-lg">
           TalentScout
