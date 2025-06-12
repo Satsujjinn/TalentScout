@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import Layout from '../components/Layout';
 
 export default function Profile() {
   const { token } = useAuth();
@@ -9,7 +10,7 @@ export default function Profile() {
     async function fetchData() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
         credentials: 'include'
       });
       const data = await res.json();
@@ -18,5 +19,10 @@ export default function Profile() {
     if (token) fetchData();
   }, [token]);
 
-  return <div>{message || 'Loading...'}</div>;
+  return (
+    <Layout>
+      <h1>Profile</h1>
+      <p>{message || 'Loading...'}</p>
+    </Layout>
+  );
 }

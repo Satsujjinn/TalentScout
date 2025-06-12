@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../context/AuthContext';
+import Layout from '../components/Layout';
 
 export default function Signup() {
   const { setToken } = useAuth();
@@ -13,8 +14,8 @@ export default function Signup() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        username: form.username.value,
-        password: form.password.value,
+        username: (form as any).username.value,
+        password: (form as any).password.value,
         role: 'talent'
       }),
       credentials: 'include'
@@ -25,10 +26,19 @@ export default function Signup() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="username" placeholder="username" />
-      <input name="password" type="password" placeholder="password" />
-      <button type="submit">Sign Up</button>
-    </form>
+    <Layout>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit} className="form">
+        <label>
+          Username
+          <input name="username" />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" />
+        </label>
+        <button type="submit" className="btn primary">Sign Up</button>
+      </form>
+    </Layout>
   );
 }
