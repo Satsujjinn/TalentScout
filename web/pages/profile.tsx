@@ -8,7 +8,8 @@ export default function Profile() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/verify`, {
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+      const res = await fetch(`${baseUrl}/api/auth/verify`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         credentials: 'include'
