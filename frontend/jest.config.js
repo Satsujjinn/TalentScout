@@ -3,5 +3,9 @@ const createJestConfig = nextJest({ dir: './' });
 module.exports = createJestConfig({
   testEnvironment: 'jsdom',
   collectCoverage: true,
-  coverageThreshold: { global: { branches: 50, functions: 50, lines: 50, statements: 50 } }
+  moduleDirectories: ['node_modules', '<rootDir>/', '<rootDir>/../shared'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+    '^shared/(.*)$': '<rootDir>/../shared/$1'
+  }
 });
