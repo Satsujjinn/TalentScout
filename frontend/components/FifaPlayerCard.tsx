@@ -18,7 +18,7 @@ interface FifaPlayerCardProps {
 export default function FifaPlayerCard({ athlete, onMatch, disabled }: FifaPlayerCardProps) {
   const rating = Math.min(99, 60 + (athlete.achievements?.length || 0) * 5);
   return (
-    <div className="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-green-50 rounded-lg shadow-lg p-4 flex flex-col items-center">
+    <div className="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-green-50 rounded-lg shadow-lg p-4 flex flex-col items-center h-full">
       {athlete.avatarUrl && (
         <Image
           src={athlete.avatarUrl}
