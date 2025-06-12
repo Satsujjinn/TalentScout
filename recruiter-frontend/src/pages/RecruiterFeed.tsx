@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TinderCard from 'react-tinder-card';
 import { useMatch } from '../context/MatchContext';
 import api from '../services/api';
 
@@ -19,23 +18,43 @@ export default function RecruiterFeed() {
     api.get<Athlete[]>('/api/athletes').then((res) => setAthletes(res.data));
   }, []);
 
+  const handleLike = (id: string) => {
+    sendLike(id);
+    setAthletes((a) => a.filter((athlete) => athlete.id !== id));
+  };
+
+  const handlePass = (id: string) => {
+    sendPass(id);
+    setAthletes((a) => a.filter((athlete) => athlete.id !== id));
+  };
+
   return (
-    <div className="flex justify-center">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {athletes.map((athlete) => (
-        <TinderCard
-          key={athlete.id}
-          onSwipe={(dir) => {
-            if (dir === 'right') sendLike(athlete.id);
-            if (dir === 'left') sendPass(athlete.id);
-          }}
-        >
-          <div className="bg-white rounded shadow-lg p-4 w-80">
-            <img src={athlete.photoUrl} alt={athlete.name} className="w-full h-48 object-cover rounded" />
-            <h3 className="text-xl font-bold mt-2">{athlete.name}</h3>
-            <p>{athlete.sport}</p>
-            <video src={athlete.videoUrl} controls className="w-full mt-2" />
+        <div key={athlete.id} className="bg-white rounded shadow-lg p-4">
+          <img
+            src={athlete.photoUrl}
+            alt={athlete.name}
+            className="w-full h-48 object-cover rounded"
+          />
+          <h3 className="text-xl font-bold mt-2">{athlete.name}</h3>
+          <p>{athlete.sport}</p>
+          <video src={athlete.videoUrl} controls className="w-full mt-2" />
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={() => handleLike(athlete.id)}
+              className="bg-green-500 text-white px-3 py-1 rounded"
+            >
+              Like
+            </button>
+            <button
+              onClick={() => handlePass(athlete.id)}
+              className="bg-red-500 text-white px-3 py-1 rounded"
+            >
+              Pass
+            </button>
           </div>
-        </TinderCard>
+        </div>
       ))}
     </div>
   );
