@@ -245,6 +245,7 @@ export default function HomePage() {
                 key={athlete._id}
                 athlete={athlete}
                 onMatch={() => {}}
+                showMatchButton={false}
               />
             ))}
           </div>
