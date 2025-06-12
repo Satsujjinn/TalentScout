@@ -31,8 +31,16 @@ export default function ProfileEditor() {
     setMedia((m) => m.filter((f) => f.id !== id));
   };
 
+  const completed = [name, school, position, stats].filter(Boolean).length +
+    (media.length > 0 ? 1 : 0);
+  const progress = Math.round((completed / 5) * 100);
+
   return (
     <div className="space-y-4">
+      <div>
+        <div className="text-sm mb-1">Profile completion: {progress}%</div>
+        <progress value={progress} max={100} className="w-full h-2" />
+      </div>
       <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="border p-1" />
       <input value={school} onChange={(e) => setSchool(e.target.value)} placeholder="School" className="border p-1" />
       <input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="Position" className="border p-1" />

@@ -6,6 +6,7 @@ export interface IUser extends mongoose.Document {
   role: 'talent' | 'scout';
   isAthlete: boolean;
   isRecruiter: boolean;
+  score: number;
 }
 
 const UserSchema = new mongoose.Schema<IUser>({
@@ -13,7 +14,8 @@ const UserSchema = new mongoose.Schema<IUser>({
   password: { type: String, required: true },
   role: { type: String, enum: ['talent', 'scout'], required: true },
   isAthlete: Boolean,
-  isRecruiter: Boolean
+  isRecruiter: Boolean,
+  score: { type: Number, default: 0 }
 });
 
 export default mongoose.model<IUser>('User', UserSchema);
