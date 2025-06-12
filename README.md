@@ -14,6 +14,11 @@ cp web/.env.example web/.env
 npm install --workspaces
 ```
 
+Use **Node.js 18** when installing dependencies. Newer Node versions may fail to
+load the `lightningcss` binary that Next.js depends on.
+If you see an error like `Cannot find module '../lightningcss.darwin-arm64.node'`,
+switch to Node 18 and reinstall packages.
+
 Set a value for `JWT_SECRET` in each `.env` file. The applications will throw
 an error if this variable is missing.
 
