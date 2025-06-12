@@ -35,6 +35,14 @@ cp .env.local.example .env.local
 npm run demo
 ```
 
+The older `web` package now also supports mock API routes. Copy the example env file, leave `NEXT_PUBLIC_API_URL` empty and run the dev server:
+
+```bash
+cd web
+cp .env.example .env
+npm run dev
+```
+
 ### Running Tests
 
 ```bash

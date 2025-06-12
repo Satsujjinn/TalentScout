@@ -33,7 +33,8 @@ none
 ### web .env.example
 
 ```
-NEXT_PUBLIC_API_URL=http://localhost:3001
+# Leave NEXT_PUBLIC_API_URL empty to use built-in mock API routes
+#NEXT_PUBLIC_API_URL=http://localhost:3001
 # Required for signing JWTs
 JWT_SECRET=your_jwt_secret
 
